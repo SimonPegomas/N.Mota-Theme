@@ -22,7 +22,18 @@ if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_
 }
 ?>
 
+<footer class="footer">
+    <div class="footer-container">
+        <ul class="footer-links">
+            <li><a href="#mentions-legales">Mentions légales</a></li>
+            <li><a href="#vie-privee">Vie privée</a></li>
+            <li><a href="#tous-droits-reserves">Tous droits réservés</a></li>
+        </ul>
+    </div>
+</footer>
+
 <?php wp_footer(); ?>
 
 </body>
 </html>
+

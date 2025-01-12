@@ -26,26 +26,42 @@ $skip_link_url = apply_filters( 'hello_elementor_skip_link_url', '#content' );
 
 <header>
             <div class="container-logo">
-                <div class="logo">
-                <a href="http://localhost/Planty/wordpress/home/">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/logo.png" alt="Planty" title="Planty" class="">
-                </a>
-                </div>    
+			<div class="logo">
+    			<a href="<?php echo esc_url(home_url('/')); ?>">
+        			<img src="<?php echo get_stylesheet_directory_uri(); ?>/asset/images/logo.png" alt="Mota" title="Mota">
+    			</a>
+			</div>
+    
             </div>
             
             <div class="menu">
                 <nav>
                     <ul>
-                        <li><a href="http://localhost/Planty/wordpress/nous-rencontrer/" class="menu-link"> Nous rencontrer </a></li> 
-                        <li class="admin-link"><?php display_admin_link();  ?></li>
-						<li><a href="http://localhost/Planty/wordpress/commander/" class="commander">Commander</a></li> 
+                        <li><a href="home" class="menu-link"> Accueil </a></li> 
+                        <li><a href="About" class="menu-link"> A propos </a></li>
+						<li><a href="Contact" class="menu-link"> Contact </a></li>
                     </ul>
                 
                 </nav>    
             </div>
         
-            
-        </header>
+            <!-- Menu Burger -->
+<div id="burger-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<!-- Overlay pour le menu -->
+		<div id="menu-overlay">
+    		<ul>
+        		<li><a href="home">Accueil</a></li>
+        		<li><a href="About">À propos</a></li>
+        		<li><a href="Contact">Contact</a></li>
+    		</ul>
+</div>
+
+</header>
 <body <?php body_class(); ?>>
 
 <?php wp_body_open(); ?>
