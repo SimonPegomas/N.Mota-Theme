@@ -26,20 +26,20 @@ $skip_link_url = apply_filters( 'hello_elementor_skip_link_url', '#content' );
 
 <header>
             <div class="container-logo">
-			<div class="logo">
-    			<a href="<?php echo esc_url(home_url('/')); ?>">
+				<div class="logo">
+    				<a href="<?php echo esc_url(home_url('/')); ?>">
         			<img src="<?php echo get_stylesheet_directory_uri(); ?>/asset/images/logo.png" alt="Mota" title="Mota">
-    			</a>
-			</div>
-    
-            </div>
+    				</a>
+				</div>
+    		</div>
             
             <div class="menu">
                 <nav>
                     <ul>
                         <li><a href="home" class="menu-link"> Accueil </a></li> 
                         <li><a href="About" class="menu-link"> A propos </a></li>
-						<li><a href="Contact" class="menu-link"> Contact </a></li>
+						<li><a href="#" class="menu-link open-modal">Contact</a></li>
+
                     </ul>
                 
                 </nav>    

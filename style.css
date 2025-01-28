@@ -1,1180 +1,190 @@
-/*!
-Theme Name: Nathalie Mota Theme 
-Theme URI: https://elementor.com/hello-theme/?utm_source=wp-themes&utm_campaign=theme-uri&utm_medium=wp-dash
-Description: A plain-vanilla & lightweight theme for Elementor page builder
-Author: Elementor Team
-Author URI: https://elementor.com/?utm_source=wp-themes&utm_campaign=author-uri&utm_medium=wp-dash
-Template: hello-elementor
-Version: 1.0.0
-License: GNU General Public License v3 or later.
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
-Text Domain: hello-elementor
-*/
-/**
- * Loading first in the style.scss & classic-editor.scss
- */
-/**
-* Document basic styling
-* Inspired by Normalize.css, HTML5 Boilerplate & Bootstrap Reboot Projects under MIT License
- */
-/**
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in iOS.
- * 3. Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
- */
-html {
-  line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box; /* 3 */
-}
-
-/* Sections
- */
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #333333;
-  background-color: #fff;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/**
- * Correct the font size and margin on `h1` elements within `section` and
- * `article` contexts in Chrome, Firefox, and Safari.
- */
-h1, h2, h3, h4, h5, h6 {
-  margin-block-start: 0.5rem;
-  margin-block-end: 1rem;
-  font-family: inherit;
-  font-weight: 500;
-  line-height: 1.2;
-  color: inherit;
-}
-
-h1 {
-  font-size: 2.5rem;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
-h3 {
-  font-size: 1.75rem;
-}
-
-h4 {
-  font-size: 1.5rem;
-}
-
-h5 {
-  font-size: 1.25rem;
-}
-
-h6 {
-  font-size: 1rem;
-}
-
-p {
-  margin-block-start: 0;
-  margin-block-end: 0.9rem;
-}
-
-/* Grouping content
- */
-/**
- * 1. Add the correct box sizing in Firefox.
- * 2. Show the overflow in Edge and IE.
- */
-hr {
-  box-sizing: content-box; /* 1 */
-  height: 0; /* 1 */
-  overflow: visible; /* 2 */
-}
-
-/**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
- */
-pre {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
-  white-space: pre-wrap;
-}
-
-/* Text-level semantics
- */
-a {
-  background-color: transparent;
-  text-decoration: none;
-  color: #CC3366;
-}
-a:hover, a:active {
-  color: #333366;
-}
-a:not([href]):not([tabindex]) {
-  color: inherit;
-  text-decoration: none;
-}
-a:not([href]):not([tabindex]):hover, a:not([href]):not([tabindex]):focus {
-  color: inherit;
-  text-decoration: none;
-}
-a:not([href]):not([tabindex]):focus {
-  outline: 0;
-}
-
-/**
- * 1. Remove the bottom border in Chrome 57-
- * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
- */
-abbr[title] {
-  border-block-end: none; /* 1 */
-  -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted; /* 2 */
-}
-
-/**
- * Add the correct font weight in Chrome, Edge, and Safari.
- */
-b,
-strong {
-  font-weight: bolder;
-}
-
-/**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
- */
-code,
-kbd,
-samp {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
-}
-
-/**
- * Add the correct font size in all browsers.
- */
-small {
-  font-size: 80%;
-}
-
-/**
- * Prevent `sub` and `sup` elements from affecting the line height in
- * all browsers.
- */
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-sub {
-  bottom: -0.25em;
-}
-
-sup {
-  top: -0.5em;
-}
-
-/* Embedded content
- */
-/**
- * Remove the border on images inside links in IE 10.
- */
-img {
-  border-style: none;
-  height: auto;
-  max-width: 100%;
-}
-
-/* Interactive
- */
-/*
- * Add the correct display in Edge, IE 10+, and Firefox.
- */
-details {
-  display: block;
-}
-
-/*
- * Add the correct display in all browsers.
- */
-summary {
-  display: list-item;
-}
-
-figcaption {
-  font-size: 16px;
-  color: #333333;
-  line-height: 1.4;
-  font-style: italic;
-  font-weight: 400;
-}
-
-/* Misc
- */
-/**
- * Add the correct display in IE 10+.
- */
-template {
+/* Modale  */
+.contact-modal {
   display: none;
-}
-
-/**
- * Add the correct display in IE 10.
- */
-[hidden] {
-  display: none;
-}
-
-/* Print
- */
-@media print {
-  *,
-  *:before,
-  *:after {
-    background: transparent !important;
-    color: #000 !important; /* Black prints faster */
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
-  a[href]:after {
-    content: " (" attr(href) ")";
-  }
-  abbr[title]:after {
-    content: " (" attr(title) ")";
-  }
-  a[href^="#"]:after,
-  a[href^="javascript:"]:after {
-    content: "";
-  }
-  pre {
-    white-space: pre-wrap !important;
-  }
-  pre,
-  blockquote {
-    -moz-column-break-inside: avoid;
-         break-inside: avoid;
-    border: 1px solid #cccccc;
-  }
-  thead {
-    display: table-header-group;
-  }
-  tr,
-  img {
-    -moz-column-break-inside: avoid;
-         break-inside: avoid;
-  }
-  p,
-  h2,
-  h3 {
-    orphans: 3;
-    widows: 3;
-  }
-  h2,
-  h3 {
-    -moz-column-break-after: avoid;
-         break-after: avoid;
-  }
-}
-/**
- * Form styling
- */
-label {
-  display: inline-block;
-  line-height: 1;
-  vertical-align: middle;
-}
-
-/**
- * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
- */
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit; /* 1 */
-  font-size: 1rem; /* 1 */
-  line-height: 1.5; /* 1 */
-  margin: 0; /* 2 */
-}
-
-input[type=text],
-input[type=date],
-input[type=email],
-input[type=number],
-input[type=password],
-input[type=search],
-input[type=tel],
-input[type=url],
-select,
-textarea {
+  position: fixed;
+  top: 0;
+  left: 0%;
   width: 100%;
-  border: solid 1px #666666;
-  border-radius: 3px;
-  padding: 0.5rem 1rem;
-  transition: all 0.3s;
-}
-input[type=text]:focus,
-input[type=date]:focus,
-input[type=email]:focus,
-input[type=number]:focus,
-input[type=password]:focus,
-input[type=search]:focus,
-input[type=tel]:focus,
-input[type=url]:focus,
-select:focus,
-textarea:focus {
-  border-color: #333333;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
-/**
- * Show the overflow in IE.
- * 1. Show the overflow in Edge.
- */
-button,
-input { /* 1 */
-  overflow: visible;
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  border: 2px solid #000; /* Cadre noir */
+  position: relative;
 }
 
-/**
- * Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 1. Remove the inheritance of text transform in Firefox.
- */
-button,
-select { /* 1 */
-  text-transform: none;
+/* Bouton de fermeture */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 50px;
+  cursor: pointer;
+  color: #ffffff;
 }
 
-/**
- * Correct the inability to style clickable types in iOS and Safari.
- */
-button,
-[type=button],
-[type=reset],
-[type=submit] {
-  width: auto;
-  -webkit-appearance: button;
+/* Champs de formulaire */
+.modal-content input,
+.modal-content textarea,
+.modal-content button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  font-family: 'Space Mono', monospace; /* Utiliser la même police */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
-/**
- * Restore the focus styles unset by the previous rule.
- */
-button,
-[type=submit],
-[type=button] {
+/* Bouton Envoyer */
+.modal-content button {
+  color: rgb(5, 5, 5);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  right: 10%;
+}
+
+[type=button],[type=submit],button {
   display: inline-block;
   font-weight: 400;
-  color: #CC3366;
   text-align: center;
   white-space: nowrap;
   -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-  background-color: transparent;
-  border: 1px solid #CC3366;
-  padding: 0.5rem 1rem;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: rgb(146, 146, 146);
+  border: 1px solid rgb(0, 0, 0) ; 
+  padding: .5rem 1rem;
   font-size: 1rem;
   border-radius: 3px;
-  transition: all 0.3s;
-}
-button:focus:not(:focus-visible),
-[type=submit]:focus:not(:focus-visible),
-[type=button]:focus:not(:focus-visible) {
-  outline: none;
-}
-button:hover, button:focus,
-[type=submit]:hover,
-[type=submit]:focus,
-[type=button]:hover,
-[type=button]:focus {
-  color: #ffffff;
-  background-color: #CC3366;
-  text-decoration: none;
-}
-button:not(:disabled),
-[type=submit]:not(:disabled),
-[type=button]:not(:disabled) {
-  cursor: pointer;
+  transition: all .3s
 }
 
-/**
- * Correct the padding in Firefox.
- */
-fieldset {
-  padding: 0.35em 0.75em 0.625em;
+[type=button]:hover, [type=submit]:hover, button:hover {
+  background-color: rgb(103, 103, 103)!important;
+  color: #fff;
+  border-color: rgb(0, 0, 0);
 }
 
-/**
- * 1. Correct the text wrapping in Edge and IE.
- * 2. Correct the color inheritance from `fieldset` elements in IE.
- * 3. Remove the padding so developers are not caught out when they zero out
- *    `fieldset` elements in all browsers.
- */
-legend {
-  box-sizing: border-box; /* 1 */
-  color: inherit; /* 2 */
-  display: table; /* 1 */
-  max-width: 100%; /* 1 */
-  padding: 0; /* 3 */
-  white-space: normal; /* 1 */
+/* Styles spécifiques pour le bouton Envoyer */
+.modal-content textarea {
+  height: 100px;
 }
 
-/**
- * Add the correct vertical alignment in Chrome, Firefox, and Opera.
- */
-progress {
-  vertical-align: baseline;
-}
-
-/**
- * Remove the default vertical scrollbar in IE 10+.
- */
-textarea {
-  overflow: auto;
-  resize: vertical;
-}
-
-/**
- * 1. Add the correct box sizing in IE 10.
- * 2. Remove the padding in IE 10.
- */
-[type=checkbox],
-[type=radio] {
-  box-sizing: border-box; /* 1 */
-  padding: 0; /* 2 */
-}
-
-/**
- * Correct the cursor style of increment and decrement buttons in Chrome.
- */
-[type=number]::-webkit-inner-spin-button,
-[type=number]::-webkit-outer-spin-button {
-  height: auto;
-}
-
-/**
- * 1. Correct the odd appearance in Chrome and Safari.
- * 2. Correct the outline style in Safari.
- */
-[type=search] {
-  -webkit-appearance: textfield; /* 1 */
-  outline-offset: -2px; /* 2 */
-}
-
-/**
- * Remove the inner padding in Chrome and Safari on macOS.
- */
-[type=search]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-/**
- * 1. Correct the inability to style clickable types in iOS and Safari.
- * 2. Change font properties to `inherit` in Safari.
- */
-::-webkit-file-upload-button {
-  -webkit-appearance: button; /* 1 */
-  font: inherit; /* 2 */
-}
-
-select {
-  display: block;
-}
-
-/**
- * Table styling
- */
-table {
-  background-color: transparent;
-  width: 100%;
-  margin-block-end: 15px;
-  font-size: 0.9em;
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-table th,
-table td {
-  padding: 15px;
-  line-height: 1.5;
-  vertical-align: top;
-  border: 1px solid rgba(128, 128, 128, 0.5019607843);
-}
-table th {
-  font-weight: bold;
-}
-table thead th,
-table tfoot th {
-  font-size: 1em;
-}
-table caption + thead tr:first-child th,
-table caption + thead tr:first-child td,
-table colgroup + thead tr:first-child th,
-table colgroup + thead tr:first-child td,
-table thead:first-child tr:first-child th,
-table thead:first-child tr:first-child td {
-  border-block-start: 1px solid rgba(128, 128, 128, 0.5019607843);
-}
-table tbody > tr:nth-child(odd) > td,
-table tbody > tr:nth-child(odd) > th {
-  background-color: rgba(128, 128, 128, 0.0705882353);
-}
-table tbody tr:hover > td,
-table tbody tr:hover > th {
-  background-color: rgba(128, 128, 128, 0.1019607843);
-}
-table tbody + tbody {
-  border-block-start: 2px solid rgba(128, 128, 128, 0.5019607843);
-}
-@media (max-width: 767px) {
-  table table {
-    font-size: 0.8em;
-  }
-  table table th,
-  table table td {
-    padding: 7px;
-    line-height: 1.3;
-  }
-  table table th {
-    font-weight: 400;
-  }
-}
-
-/**
- * List styling
- */
-dl,
-dt,
-dd,
-ol,
-ul,
-li {
-  margin-block-start: 0;
-  margin-block-end: 0;
-  border: 0;
-  outline: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent;
+/* Ajustement pour le bouton Envoyer (même largeur que le champ Message) */
+.modal-content button {
+  width: 100%; /* Fait la même largeur que les autres champs */
 }
 
 
-/* header */
 
-/* Style général de l'en-tête */
-header {
+
+
+/* Template photo */
+
+.search-filters {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: white; /* Couleur de fond de l'en-tête */
-  border-bottom: 1px solid #ddd; /* Bordure en bas de l'en-tête */
-  position: relative; /* Permet de positionner le bouton à l'intérieur de l'en-tête */
+  margin: 60px auto 280px auto;
+  width: 80%; /* Utilisation d'une largeur fixe pour centrer */
 }
 
-/* Conteneur du logo */
-.container-logo {
+.search-filters .filter-group {
   display: flex;
-  align-items: center;
-}
-/* Style du logo */
-.logo img {
-  height: 20px; /* Hauteur réduite du logo */
-  width: auto; /* Conserver les proportions du logo */
+  gap: 10px;
 }
 
-/* Style du menu */
-.menu {
-  display: flex;
-  align-items: center; /* Alignement vertical des éléments du menu */
-  position: relative; /* Positionnement relatif pour contenir les éléments */
-}
-
-/* Style de la liste du menu */
-.menu ul {
-  list-style: none; /* Supprimer les puces */
-  margin: 0;
-  margin-right: 60px;
-  padding: 0;
-  display: flex;
-  justify-content: end; /* Répartition des éléments vers la gauche */
-}
-
-/* Style des éléments de liste du menu */
-.menu ul li {
-  margin-right: 80px; /* Espacement entre les éléments de la liste */
-  margin-top: -8px ; 
-}
-
-/* Style des liens du menu */
-.menu ul li a {
-  text-decoration: none; /* Supprimer le soulignement */
-  color: #333; /* Couleur du texte du lien */
-  font-size: 19px; /* Taille de la police */
-  font-family:syne ;
-  padding: 10px 25px; /* Espacement intérieur */
-  display: flex; /* Utiliser flexbox pour aligner le texte */
-  align-items: center; /* Alignement vertical du texte */
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Effet de transition */
-}
- 
-.menu ul li a.commander {
-  background-color: #D2776A; /* Couleur de fond rose */
-  color: #fff; /* Couleur du texte en blanc */
-  font-weight: bold; /* Texte en gras */
-  display: inline-flex; /* Utiliser flexbox pour aligner le texte */
-  align-items: center; /* Alignement vertical du texte */
-  text-align: center; /* Alignement du texte au centre */
-  position: absolute; /* Positionnement absolu */
-  top: 0px; /* Espacement du haut de l'écran */
-  margin-top: -10px; 
-  right: -20px; /* Espacement du bord droit de l'écran */
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Effet de transition pour la transformation */
-}
-
-/* Style au survol du bouton "Commander" */
-.menu ul li a.commander:hover {
-  background-color:#C02E44;
-  ; 
-  color: #fff; /* Couleur du texte au survol */
-  transform: scale(1.05); 
-}
-
-/* Media query pour les écrans de moins de 768px */
-@media (max-width: 768px) {
-
-  header {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centrer le logo */
-    padding: 10px;
-  }
-
-  /* Logo centré en haut */
-  .container-logo {
-    width: 100%;
-    display: flex;
-    justify-content: center; /* Centrer le logo */
-    margin-bottom: 20px;
-  }
-
-  /* Menu sur une seule ligne avec espace entre les éléments */
-  .menu ul {
-    display: flex;
-    justify-content: space-between; /* "Nous rencontrer" à gauche, "Commander" à droite */
-    width: 100%;
-    padding: 0 1px; /* Ajustement de l'espacement horizontal */
-    margin: 1px;
-  }
-
-  .menu ul li {
-    flex-basis: 50%; /* Chaque élément prend 50% de l'espace disponible */
-    text-align: center; /* Centrer le texte dans chaque élément */
-    font-size: 10px;
-  }
-
-  .menu ul li:first-child {
-    text-align: left; /* "Nous rencontrer" à gauche */
-  }
-
-  .menu ul li:last-child {
-    text-align: right; /* "Commander" à droite */
-  }
-
-  /* Masquer le lien admin si besoin */
-  .admin-link {
-    display: none;
-  }
-}
-
-
-/* Short Code Bottle */
-.container {
-  position: relative;
-  width: 100%; /* S'adapte à la largeur du parent */
-  height: 0;
-  padding-bottom: 30%;
-}
-
-.BranchLeft {
-  position: absolute;
-  width: 250px;
-  height : auto; 
-  top: 19%; 
-  left: 36.5%;  
-  z-index: 1;  
-}
-
-.Bottle {
-  position: absolute;
-  width: 250px;
-  height : auto; 
-  top: 10%;  /* Ajustement de la position verticale pour centrer correctement */
-  left: 43%; /* Centre horizontalement */
-  z-index: 3;  
-}
-
-/* Style au survol du bouton "Commander" */
-.menu ul li a.commander:hover {
-  background-color:#C02E44;
-  ; 
-  color: #fff; /* Couleur du texte au survol */
-  transform: scale(1.05); 
-}
-/* Short Code Bottle */
-.container {
-  position: relative;
-  width: 100%; /* S'adapte à la largeur du parent */
-  height: 0;
-  padding-bottom: 30%;
-}
-
-.BranchLeft {
-  position: absolute;
-  width: 250px;
-  height : auto; 
-  top: 19%; 
-  left: 36.5%;  
-  z-index: 1;  
-}
-
-.Bottle {
-  position: absolute;
-  width: 250px;
-  height : auto; 
-  top: 10%;  /* Ajustement de la position verticale pour centrer correctement */
-  left: 43%; /* Centre horizontalement */
-  z-index: 3;  
-}
-.BranchRight {
-  position: absolute;
-  width: 250px;
-  height : auto; 
-  top: 19%; 
-  left: 49.5%; 
-  z-index: 2;  
-}
-/* Réduction de la taille de l'image par 3 pour les écrans de moins de 320px */
-@media (max-width: 320px) {
-  img {
-    width: 100px; /* Réduction de l'image par 3 */
-    height: auto; /* Conserve les proportions */
-  }
-}
-
-/* Formualaire de commande*/ 
-
-/* Style global du formulaire */
-.custom-form {
-  background-color: #3B8E46;
-  padding: 20px;
-  border-radius: 8px;
-  color: white;
-}
-
-/* Section produits */
-.product-section {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
-}
-
-.product-item {
-  display: flex;
-  flex-direction: column; /* Aligne l'image et le champ verticalement */
-  align-items: center; /* Centre le contenu horizontalement */
-  text-align: center;
-  flex-basis: 23%; /* Chaque image prend une part égale de l'espace */
-}
-
-.product-item img {
-  width: 250px; /* Taille des images */
-  height: 250px;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-
-.product-item input[type="number"] {
-  width: 40px; /* Réduction de la largeur des champs */
-  height: 50px;
-  padding: 2px; /* Réduction du padding pour les rendre plus compacts */
-  border-radius: 2px;
-  border: none;
-  text-align: center;
-  font-size: 16px;
-  margin-top: 5px; /* Espace entre l'image et le champ */
-}
-
-/* Trait de séparation */
-.form-separator {
-  border: 0;
-  border-top: 1px solid white;
-  margin: 20px 0;
-}
-
-/* Section deux colonnes */
-.two-columns {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-}
-
-.column-left, .column-right {
-  width: 48%;
-}
-
-.column-left {
-  padding-right: 20px;
-}
-
-.column-right {
-  padding-left: 20px;
-}
-
-/* Séparation blanche verticale entre les colonnes */
-.two-columns::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-  background-color: white;
-  height: 100%;
-}
-
-/* Titres des colonnes */
-h2 {
-  font-size: 20px;
-  margin-bottom: 15px;
-  color: white;
-}
-
-/* Labels et champs */
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 14px;
-}
-
-input[type="text"],
-input[type="email"] {
-  width: 100%;
-  height: 50px;
-  padding: 8px;
-  border: none;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  font-size: 14px;
-}
-
-/* Bouton de soumission */
-.submit-section {
-  text-align: center;
-  margin-top: 20px;
-  width: 100%;
-}
-
-.wpcf7-submit {
-  background-color: #E0B9B4;
-  color: white !important;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  display: inline-block; /* S'assure que le bouton prend seulement la largeur nécessaire */
-  margin-right: 45%;
-}
-
-.wpcf7-form-control {
-  color: white !important ;
-}
-
-input[type="submit"]:hover {
-  background-color: #C02E44;
-  color: white; 
-}
-
-	/* Formulaire de Contact */
-	
-	
-/* Style des labels */
-.contact-form label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 8px;
-  font-size: 18px;
-}
-
-.contact-form input[type="text"],
-.contact-form input[type="email"],
-.contact-form textarea {
-    width: 100%;
-    height: 50px;
-    padding: 10px;
-    margin-bottom: 20px; /* Ajout d'un peu plus d'espace entre les champs */
-    border: none; /* Suppression des bordures */
-    border-radius: 5px;
-    font-size: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Optionnel : ajout d'une légère ombre pour l'effet visuel */
-    box-sizing: border-box; /* S'assure que la largeur inclut le padding */
-}
-
-/* Style spécifique pour le champ de message (plus grand) */
-.contact-form textarea {
-  height: 200px; /* Ajusté à 3 fois la taille des autres champs */
-}
-
-/* Style du bouton Envoyer */
-.contact-form input[type="submit"] {
-  background-color: #E0B9B4;
-  color: white !important ; 
-  padding: 10px 70px;
-  border: none;
+.search-filters select {
+  width: 150px;
+  padding: 5px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-  text-align: center;
-  display: block;
-  margin: 0 auto; /* Centrer le bouton */
-  transition: background-color 0.3s ease;
-}
-
-/* Hover du bouton Envoyer */
-.contact-form input[type="submit"]:hover {
-  background-color: #C02E44;
-}
-
-
-
-/* Style global du formulaire */
-.custom-form {
-  background-color: #3B8E46;
-  padding: 20px;
-  border-radius: 8px;
-  color: white;
-}
-
-/* Section produits */
-.product-section {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
-}
-
-.product-item {
-  display: flex;
-  flex-direction: column; /* Aligne l'image et le champ verticalement */
-  align-items: center; /* Centre le contenu horizontalement */
-  text-align: center;
-  flex-basis: 23%; /* Chaque image prend une part égale de l'espace */
-}
-
-.product-item img {
-  width: 250px; /* Taille des images */
-  height: 250px;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-
-.product-item input[type="number"] {
-  width: 40px; /* Réduction de la largeur des champs */
-  height: 50px;
-  padding: 2px; /* Réduction du padding pour les rendre plus compacts */
-  border-radius: 2px;
-  border: none;
-  text-align: center;
-  font-size: 16px;
-  margin-top: 5px; /* Espace entre l'image et le champ */
-}
-
-/* Trait de séparation */
-.form-separator {
-  border: 0;
-  border-top: 1px solid white;
-  margin: 20px 0;
-}
-
-/* Section deux colonnes */
-.two-columns {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-}
-
-.column-left, .column-right {
-  width: 48%;
-}
-
-.column-left {
-  padding-right: 20px;
-}
-
-.column-right {
-  padding-left: 20px;
-}
-
-/* Séparation blanche verticale entre les colonnes */
-.two-columns::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-  background-color: white;
-  height: 100%;
-}
-
-/* Titres des colonnes */
-h2 {
-  font-size: 20px;
-  margin-bottom: 15px;
-  color: white;
-}
-
-/* Labels et champs */
-label {
-  display: block;
-  margin-bottom: 5px;
   font-size: 14px;
 }
 
-input[type="text"],
-input[type="email"] {
-  width: 100%;
-  padding: 8px;
-  border: none;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  font-size: 14px;
+.galerie-photo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px;
+  width: 80%; 
+  margin: 0 auto; 
 }
 
-/* Bouton de soumission */
-.submit-section {
-  text-align: center;
-  margin-top: 20px;
-  margin-left: 27%; 
+.galerie-photo img {
+  overflow: hidden;
+  border-radius: 10px;
+  aspect-ratio: 1 / 1;
 }
 
-input[type="submit"] {
-  background-color: white;
-  color: #3B8E46;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
+.galerie-photo img:hover {
+  transform: scale(1.005);
 }
 
-input[type="submit"]:hover {
-  background-color: #C02E44;
-  ;
+@media screen and (max-width: 900px) {
+  .photo-grid, .galerie-photo {
+    grid-template-columns: repeat(2, 1fr); /* Maintien de 2 colonnes sur tablettes */
+  }
 }
 
 @media screen and (max-width: 600px) {
-
-  /* Section produits en colonne */
-  .product-section {
-    flex-direction: column; /* Change la direction de l'affichage en colonne */
-    align-items: center; /* Centre les éléments */
+  .search-filters {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90%; /* Réduction de la largeur sur mobile */
   }
 
-  .product-item {
-    width: 100%; /* Les éléments prennent toute la largeur */
-    margin-bottom: 20px; /* Ajoute de l'espace entre chaque produit */
+  .search-filters .filter-group {
+    flex-direction: column;
+    gap: 5px;
   }
 
-  .product-item img {
-    width: 80%; /* Réduit la taille des images pour les petits écrans */
-    height: auto; /* Ajuste la hauteur automatiquement */
-  }
-
-  .product-item input[type="number"] {
-    width: 100%; /* Champs de saisie prennent toute la largeur */
-    max-width: 300px; /* Limite la largeur maximale */
-    height: 250px; /* Hauteur du champ */
-  }
-
-  /* Section informations personnelles et livraison en colonne */
-  .two-columns {
-    flex-direction: column; /* Les colonnes sont empilées */
-    justify-content: center; /* Centre les éléments */
-  }
-
-  .column-left, .column-right {
-    width: 100%; /* Les colonnes prennent toute la largeur */
-    padding: 0; /* Enlève le padding horizontal */
-  }
-  .column-right {
-    margin-left: 20%;
-
-  }
-
-  .column-left{
-    margin-left: 25%;
-  }
-.wpcf7-form-control-wrap{
-  width: 100%; /* Les champs prennent toute la largeur */
-  width: 300px  !important ;
-}
-  /* Enlève la séparation blanche entre les colonnes sur petit écran */
-  .two-columns::before {
-    display: none;
-  }
-
-  /* Champs texte en pleine largeur */
-  input[type="text"],
-  input[type="email"] {
-    width: 100%; /* Champs prennent toute la largeur */
-    box-sizing: border-box; /* Pour inclure le padding dans la largeur totale */
-  }
-
-  /* Labels centrés */
-
-  H2 {
-    text-align: center;
-  }
-  label {
-    text-align: center; /* Centre le texte des labels */
-    display: block; /* Assure que le label prend toute la largeur */
+  .search-filters select {
     width: 100%;
   }
 
-  /* Bouton de soumission */
-  .submit-section {
-    text-align: center; /* Centre le bouton de soumission */
-    justify-content: center;
-
+  .photo-grid, .galerie-photo {
+    grid-template-columns: 1fr; 
+    width: 90%; 
   }
-
-  input[type="submit"] {
-    max-width: 600px; /* Limite la largeur maximale */
-    justify-content: center;
-
-  }
-
-  
 }
+
+#load-more-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px; 
+}
+
+#load-more {
+  width: 200px;
+  height: 40px;
+  background-color: #ccc; 
+  color: #000; 
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+#load-more:hover {
+  transform: scale(1.05); 
+  background-color: #bbb; 
+}
+
+
 
 

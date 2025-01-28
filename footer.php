@@ -21,6 +21,7 @@ if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_
 	}
 }
 ?>
+<?php get_template_part( 'template-parts/contact-modal' ); ?>
 
 <footer class="footer">
     <div class="footer-container">
@@ -30,6 +31,7 @@ if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_
             <li><a href="#tous-droits-reserves">Tous droits réservés</a></li>
         </ul>
     </div>
+
 </footer>
 
 <?php wp_footer(); ?>
