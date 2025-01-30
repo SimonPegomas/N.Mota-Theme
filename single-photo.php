@@ -69,7 +69,7 @@ get_header(); // Inclure le header WordPress
         'post_type'      => 'photo',
         'posts_per_page' => 8,
         'post_status'    => 'publish',
-        'paged'          => 1, // Page ipar défaut
+        'paged'          => 1, 
     );
 
     $photo_query = new WP_Query( $args );
@@ -79,8 +79,6 @@ get_header(); // Inclure le header WordPress
             $photo_query->the_post();
 
              
-            //$reference = get_field('reference_', get_the_ID());
-            //echo $reference; //
             $URLphoto = get_field('fichier', get_the_ID());
             echo '<img src="'.$URLphoto.'">';
         }
@@ -96,6 +94,7 @@ get_header(); // Inclure le header WordPress
 
 <div id="load-more-container">
     <button id="load-more">Charger plus</button>
+    < 
     </div>
 </main>
 

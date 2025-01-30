@@ -58,8 +58,8 @@ function charger_scripts() {
 add_action('wp_enqueue_scripts', 'charger_scripts');
 
 function load_more_photos() {
-    $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
-    $photos_per_page = 6; // Nombre de photos à charger à chaque clic
+    $paged = isset($_POST['page']) ? $_POST['page'] : 1;
+    $photos_per_page = 8; // Nombre de photos à charger à chaque clic
 
     $args = array(
         'post_type'      => 'photo', // Remplace par ton CPT si différent
@@ -68,16 +68,25 @@ function load_more_photos() {
     );
 
     $query = new WP_Query($args);
+    ob_start();
 
     if ($query->have_posts()) :
-        while ($query->have_posts()) : $query->the_post(); ?>
-            <div class="photo-item">
-                <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'medium'); ?>" alt="<?php the_title(); ?>">
-            </div>
-        <?php endwhile;
+        while ($query->have_posts()) : $query->the_post();
+            $URLphoto = get_field('fichier', get_the_ID());
+            if ($URLphoto) {
+                echo '<div class="photo-item">';
+                echo '<img src="' . esc_url($URLphoto) . '" alt="' . esc_attr(get_the_title()) . '">';
+                echo '</div>';
+            }
+        endwhile;
         wp_reset_postdata();
+    else :
+        echo '';
     endif;
+    $output = ob_get_clean(); 
+    echo $output;
     die();
+
 }
 
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
