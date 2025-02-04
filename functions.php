@@ -1,93 +1,81 @@
 <?php
-// Ajout du CSS pour le header et le footer
-function mota_theme_enqueue_styles() {
-    // Charger le CSS de base de WordPress (si ce n'est pas déjà fait)
-    wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
-
-    // Charger ton fichier CSS personnalisé pour le header et le footer
-    wp_enqueue_style( 'header-footer-style', get_stylesheet_directory_uri() . '/header-footer.css' );
-}
-
-add_action( 'wp_enqueue_scripts', 'mota_theme_enqueue_styles' );
-?>
-
-<?php
-
-function mota_enqueue_styles() {
-    // Inclure le style principal du thème enfant
+// Charger les styles et scripts du thème
+function mota_theme_enqueue_assets() {
+    // Charger le CSS du thème parent et enfant
+    wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
     wp_enqueue_style('mota-style', get_stylesheet_uri());
 
-    // Inclure le CSS pour la modale
+    // Charger les styles spécifiques
+    wp_enqueue_style('header-footer-style', get_stylesheet_directory_uri() . '/header-footer.css');
     wp_enqueue_style('mota-modal', get_stylesheet_directory_uri() . '/asset/css/modal.css', array(), '1.0', 'all');
-}
-add_action('wp_enqueue_scripts', 'mota_enqueue_styles');
-// Fonction pour charger le JavaScript et CSS
-function mota_theme_enqueue_assets() {
-    // Charger le fichier JavaScript
-    wp_enqueue_script(
-        'mota-scripts', // Identifiant unique
-        get_stylesheet_directory_uri() . '/asset/JS/scripts.js', // Chemin vers le fichier JS
-        array('jquery'), // Dépendances (par exemple, jQuery)
-        null, // Version (null pour désactiver la gestion de version)
-        true // Charger dans le footer
-    );
-    
-    // Charger le CSS (si besoin pour d'autres styles)
-    wp_enqueue_style(
-        'mota-styles', // Identifiant unique
-        get_stylesheet_directory_uri() . '/header-footer.css', // Chemin vers le fichier CSS
-        array(), // Pas de dépendance
-        null // Pas de version spécifique
-    );
-}
-add_action( 'wp_enqueue_scripts', 'mota_theme_enqueue_assets' );
 
-function enqueue_photo_template_scripts() {
-    wp_enqueue_script( 'photo-template-js', get_stylesheet_directory_uri() . '/js/photo-template.js', ['jquery'], null, true );
-}
-add_action( 'wp_enqueue_scripts', 'enqueue_photo_template_scripts' );
+    // Charger les scripts JS
+    wp_enqueue_script('mota-scripts', get_stylesheet_directory_uri() . '/asset/JS/scripts.js', array('jquery'), null, true);
+    wp_enqueue_script('photo-template-js', get_stylesheet_directory_uri() . '/js/photo-template.js', array('jquery'), null, true);
 
-//Load more 
-function charger_scripts() {
-    wp_enqueue_script('mon-script', get_template_directory_uri() . '/js/scripts.js', array('jquery'), null, true);
-
-    wp_localize_script('mon-script', 'ajax_object', array(
+    // Ajouter les variables Ajax
+    wp_localize_script('mota-scripts', 'ajax_object', array(
         'ajaxurl' => admin_url('admin-ajax.php')
     ));
 }
-add_action('wp_enqueue_scripts', 'charger_scripts');
+add_action('wp_enqueue_scripts', 'mota_theme_enqueue_assets');
 
-function load_more_photos() {
-    $paged = isset($_POST['page']) ? $_POST['page'] : 1;
-    $photos_per_page = 8; // Nombre de photos à charger à chaque clic
+// Fonction pour charger dynamiquement les photos via Ajax
+function filter_photos() {
+    $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $theme = isset($_POST['theme']) && !empty($_POST['theme']) ? intval($_POST['theme']) : '';
+    $format = isset($_POST['format']) && !empty($_POST['format']) ? intval($_POST['format']) : '';
+    $sort = isset($_POST['sort']) ? sanitize_text_field($_POST['sort']) : 'date_desc';
 
     $args = array(
-        'post_type'      => 'photo', // Remplace par ton CPT si différent
-        'posts_per_page' => $photos_per_page,
+        'post_type'      => 'photo',
+        'posts_per_page' => 8,
         'paged'          => $paged,
+        'orderby'        => 'date',
+        'order'          => ($sort === 'date_asc') ? 'ASC' : 'DESC',
+        'post_status'    => 'publish',
     );
 
-    $query = new WP_Query($args);
-    ob_start();
+    $tax_query = array('relation' => 'AND');
 
+    if (!empty($theme)) {
+        $tax_query[] = array(
+            'taxonomy' => 'categorie',
+            'field'    => 'term_id',
+            'terms'    => $theme,
+        );
+    }
+
+    if (!empty($format)) {
+        $tax_query[] = array(
+            'taxonomy' => 'format',
+            'field'    => 'term_id',
+            'terms'    => $format,
+        );
+    }
+
+    if (!empty($theme) || !empty($format)) {
+        $args['tax_query'] = $tax_query;
+    }
+
+    $query = new WP_Query($args);
+
+    ob_start();
     if ($query->have_posts()) :
         while ($query->have_posts()) : $query->the_post();
             $URLphoto = get_field('fichier', get_the_ID());
-            if ($URLphoto) {
-                echo '<div class="photo-item">';
-                echo '<img src="' . esc_url($URLphoto) . '" alt="' . esc_attr(get_the_title()) . '">';
-                echo '</div>';
-            }
+            echo '<img src="' . esc_url($URLphoto) . '" alt="' . esc_attr(get_the_title()) . '">';
         endwhile;
-        wp_reset_postdata();
-    else :
-        echo '';
+    else:
+        echo '<p>Aucune photo trouvée.</p>';
     endif;
-    $output = ob_get_clean(); 
-    echo $output;
-    die();
 
+    wp_reset_postdata();
+    echo ob_get_clean();
+    die();
 }
 
-add_action('wp_ajax_load_more_photos', 'load_more_photos');
-add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
+add_action('wp_ajax_filter_photos', 'filter_photos');
+add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
+
+
