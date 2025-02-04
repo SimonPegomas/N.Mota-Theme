@@ -73,9 +73,7 @@ get_header(); // Inclure le header WordPress
             'post_status'    => 'publish',
             'paged'          => 1, 
         );
-
         $photo_query = new WP_Query($args);
-
         if ($photo_query->have_posts()) {
             while ($photo_query->have_posts()) {
                 $photo_query->the_post();
@@ -86,7 +84,6 @@ get_header(); // Inclure le header WordPress
         } else {
             echo '<p>Aucune photo.</p>';
         }
-
         wp_reset_postdata();
         ?>
     </div>
@@ -95,5 +92,4 @@ get_header(); // Inclure le header WordPress
         <button id="load-more">Charger plus</button>
     </div>
 </main>
-
 <?php get_footer(); // Inclure le footer WordPress ?>
