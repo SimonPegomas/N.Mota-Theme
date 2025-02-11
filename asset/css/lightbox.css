@@ -1,0 +1,93 @@
+/* Conteneur de la lightbox masqué par défaut */
+#lightbox-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); 
+    display: none;  
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  /* Lorsque la lightbox est active, on l'affiche en mode flex */
+  #lightbox-container.active {
+    display: flex !important;
+  }
+  
+  /* Contenu de la lightbox : un carré centré */
+  .lightbox-content {
+    position: relative;
+    width: 80%;  
+    background: #000(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* L'image s'adapte à l'intérieur du carré */
+  .lightbox-image {
+    width: 80%;
+    height: auto;
+    max-width: 80vw;
+    max-height: 90vh;
+    object-fit: contain;
+  }
+  
+  /* Bouton de fermeture (croix) en haut à droite */
+  .lightbox-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  /* Boutons Précédent et Suivant */
+  .lightbox-prev,
+  .lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  /* Positionnement des boutons de navigation */
+  .lightbox-prev {
+    left: -150px;
+  }
+  .lightbox-next {
+    right: -150px;
+  }
+  
+  /* Légende sous l'image */
+  .lightbox-caption {
+    margin-top: 10px;
+    color: #fff;
+    text-align: center;
+  }
+  
+.lightbox-prev img,
+.lightbox-next img {
+    transition: opacity 0.3s ease;
+    filter: invert(1) brightness(100);
+}
+
+.lightbox-prev:hover img {
+    content: url("../images/prevB.png"); /* Image au hover */
+}
+
+.lightbox-next:hover img {
+    content: url("../images/nextB.png"); /* Image au hover */
+}

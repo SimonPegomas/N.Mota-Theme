@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Le fichier JS est bien chargé !");
+    console.log("Le fichier JavaScript est bien chargé !");
 
-    // 1️⃣ Menu Burger
+    // 1. Menu Burger
     const burgerMenu = document.getElementById('burger-menu');
     const menuOverlay = document.getElementById('menu-overlay');
 
@@ -19,46 +19,38 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 2️⃣ Modale Contact
-    console.log("JS de la modale chargé !");
+    // 2. Modale Contact
+    const modal = document.getElementById('modale-container');
+    const closeButton = document.getElementById('close-modale');
+    const buttons = document.querySelectorAll('.open-contact-modal');
+    const inputRef = document.querySelector('input[name="photo-ref"]');
+    const photoReference = document.querySelector('.photo-reference');
 
-    const modal = document.getElementById('contact-modal');
-    const closeButton = document.getElementById('close-modal');
-
-    console.log("Modale trouvée :", modal);
-    console.log("Bouton de fermeture trouvé :", closeButton);
-
-    // 🔥 Ajout d'un eventListener global pour capturer les boutons dynamiques
-    document.addEventListener("click", function (event) {
-        if (event.target.classList.contains("open-contact-modal")) {
-            event.preventDefault();
-            console.log("Bouton cliqué !");
-            if (modal) {
-                modal.style.display = 'flex'; 
+    if (modal && closeButton && buttons.length) {
+        buttons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const ref = button.dataset.refphoto || (photoReference ? photoReference.textContent.trim() : '');
+                if (inputRef) inputRef.value = ref || '';
+                modal.style.display = 'flex';
                 modal.setAttribute('aria-hidden', 'false');
-            } else {
-                console.log("Erreur : Modale introuvable !");
-            }
-        }
-    });
+            });
+        });
 
-    if (closeButton && modal) {
         closeButton.addEventListener('click', () => {
-            console.log("Fermeture de la modale");
             modal.style.display = 'none';
             modal.setAttribute('aria-hidden', 'true');
         });
 
         window.addEventListener('click', (event) => {
             if (event.target === modal) {
-                console.log("Clic en dehors de la modale, fermeture");
                 modal.style.display = 'none';
                 modal.setAttribute('aria-hidden', 'true');
             }
         });
     }
 
-    // 3️⃣ Filtrage et Load More (Optimisé)
+    // 3. Filtrage et Load More 
     let page = 1;
     const galerie = document.querySelector(".galerie-photo");
     const loadMoreBtn = document.getElementById("load-more");
@@ -68,27 +60,26 @@ document.addEventListener("DOMContentLoaded", function () {
         let format = document.getElementById("filter-format").value;
         let sortOrder = document.getElementById("filter-sort").value;
 
-        if (reset) page = 1; // Réinitialisation de la pagination
-
         fetch(ajax_object.ajaxurl, {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams({
                 action: "filter_photos",
-                page: page,
-                theme: encodeURIComponent(theme),
-                format: encodeURIComponent(format),
-                sort: encodeURIComponent(sortOrder)
+                page: reset ? 1 : page,
+                theme: theme,
+                format: format,
+                sort: sortOrder
             }),
         })
         .then(response => response.text())
         .then(data => {
             if (reset) {
                 galerie.innerHTML = data;
+                page = 1;
             } else {
                 galerie.insertAdjacentHTML("beforeend", data);
             }
-
+            
             // Gestion de la visibilité du bouton "Charger plus"
             if (data.trim() === "" || document.querySelectorAll(".photo-item").length < 8) {
                 loadMoreBtn.style.display = "none";
@@ -101,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Écouteurs pour les filtres
     ["filter-theme", "filter-format", "filter-sort"].forEach(id => {
-        document.getElementById(id)?.addEventListener("change", function () {
+        document.getElementById(id).addEventListener("change", function () {
             loadPhotos(true);
         });
     });
@@ -114,4 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+
+
+
 

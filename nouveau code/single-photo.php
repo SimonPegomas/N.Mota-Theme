@@ -64,59 +64,32 @@ get_header(); // Inclure le header WordPress
     </div>
 
     <!-- Affichage des photos -->
-    
-    
     <div class="galerie-photo">
-    <?php
-    // Requête pour récupérer les photos
-    $args = array(
-        'post_type'      => 'photo',
-        'posts_per_page' => 8,
-        'post_status'    => 'publish',
-        'paged'          => 1, 
-    );
-    $photo_query = new WP_Query($args);
-    if ($photo_query->have_posts()) {
-        while ($photo_query->have_posts()) {
-            $photo_query->the_post();
-            $URLphoto  = get_field('fichier', get_the_ID());
-            $alt_text  = get_the_title();
-            // Récupérer la référence et la catégorie depuis ACF (vérifiez bien les noms des champs)
-            $reference = get_field('reference', get_the_ID());
-            $categorie = get_field('categorie', get_the_ID());
-            
-            echo '<div class="photo-item">';
-        echo '<img src="' . esc_url($URLphoto) . '" alt="' . esc_attr($alt_text) . '">';
-
-    // Conteneur des icônes qui apparaissent au hover
-        echo '<div class="photo-hover">';
-
-    // Icône "oeil" pour afficher les infos
-        echo '<button class="photo-info-btn" data-photo-id="' . get_the_ID() . '">';
-            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/eye-solid.svg" alt="Voir les infos">';
-        echo '</button>';
-
-    // Icône "plein écran" pour la lightbox
-        echo '<a href="' . esc_url($URLphoto) . '" data-lightbox="galerie" class="photo-lightbox-btn">';
-            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/fullscreen.svg" alt="Plein écran">';
-        echo '</a>';
-
-        echo '</div>'; // Fin de .photo-hover
-        echo '</div>'; // Fin de .photo-item
-
+        <?php
+        // Requête par défaut pour récupérer les 8 premières photos
+        $args = array(
+            'post_type'      => 'photo',
+            'posts_per_page' => 8,
+            'post_status'    => 'publish',
+            'paged'          => 1, 
+        );
+        $photo_query = new WP_Query($args);
+        if ($photo_query->have_posts()) {
+            while ($photo_query->have_posts()) {
+                $photo_query->the_post();
+                $URLphoto = get_field('fichier', get_the_ID());
+                $alt_text = get_the_title(); // Utilisation du titre comme alt si pas défini autrement
+                echo '<img src="' . esc_url($URLphoto) . '" alt="' . esc_attr($alt_text) . '">';
+            }
+        } else {
+            echo '<p>Aucune photo.</p>';
         }
-    } else {
-        echo '<p>Aucune photo.</p>';
-    }
-    wp_reset_postdata();
-    ?>
-</div>
-
-
+        wp_reset_postdata();
+        ?>
+    </div>
 
     <div id="load-more-container">
         <button id="load-more">Charger plus</button>
     </div>
 </main>
-
 <?php get_footer(); // Inclure le footer WordPress ?>

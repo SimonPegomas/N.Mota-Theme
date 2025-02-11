@@ -22,9 +22,6 @@ if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_
 }
 ?>
 <?php get_template_part( 'template-parts/contact-modal' ); ?>
-<?php get_template_part('parts/photo-info'); ?>
-
-
 
 <footer class="footer">
     <div class="footer-container">
@@ -36,28 +33,21 @@ if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_
     </div>
 
 </footer>
-<!-- Lightbox -->
-<div id="lightbox-container" style="display: none;">
-  <div class="lightbox-content">
-    <button class="lightbox-close">&times;</button>
-    <button class="lightbox-prev">
-      <img src="<?php echo get_stylesheet_directory_uri(); ?>/asset/images/prev.png" alt="Précédent">
-    </button>
-    <img class="lightbox-image" src="" alt="">
-    <button class="lightbox-next">
-      <img src="<?php echo get_stylesheet_directory_uri(); ?>/asset/images/next.png" alt="Suivant">
-    </button>
-    <div class="lightbox-caption">
-      <div class="lightbox-reference"></div>
-      <div class="lightbox-category"></div>
-    </div>
-  </div>
-</div>
-
 
 <?php wp_footer(); ?>
 
-
+<div id="lightbox" class="lightbox hidden">
+    <div class="lightbox-overlay"></div>
+    <div class="lightbox-content">
+        <img id="lightbox-image" src="" alt="">
+        <div class="lightbox-info">
+            <h3 id="lightbox-title"></h3>
+            <button id="lightbox-prev">←</button>
+            <button id="lightbox-next">→</button>
+            <button id="lightbox-close">✕</button>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

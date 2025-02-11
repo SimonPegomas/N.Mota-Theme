@@ -38,8 +38,7 @@ $skip_link_url = apply_filters( 'hello_elementor_skip_link_url', '#content' );
                     <ul>
                         <li><a href="home" class="menu-link"> Accueil </a></li> 
                         <li><a href="About" class="menu-link"> A propos </a></li>
-						<li><a href="#" class="menu-link open-contact-modal">Contact</a></li>
-						
+						<li><a href="#" class="menu-link open-modal">Contact</a></li>
 
                     </ul>
                 

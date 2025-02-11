@@ -1,35 +1,24 @@
 <?php
 // Charger les styles et scripts du thème
 function mota_theme_enqueue_assets() {
-    // Styles du thème parent et enfant
+    // Charger le CSS du thème parent et enfant
     wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
     wp_enqueue_style('mota-style', get_stylesheet_uri());
 
-    // Styles spécifiques
+    // Charger les styles spécifiques
     wp_enqueue_style('header-footer-style', get_stylesheet_directory_uri() . '/header-footer.css');
-    wp_enqueue_style('mota-modal', get_stylesheet_directory_uri() . '/asset/css/modal.css', array(), '1.0', 'all');
-    wp_enqueue_style('photo-info-style', get_stylesheet_directory_uri() . '/parts/photo-info.css', array(), '1.0', 'all');
-    wp_enqueue_style('lightbox-css', get_stylesheet_directory_uri() . '/asset/css/lightbox.css');
+    
 
-    // Scripts JS
-    wp_enqueue_script('mota-scripts', get_stylesheet_directory_uri() . '/asset/js/scripts.js', array('jquery'), null, true);
+    // Charger les scripts JS
+    wp_enqueue_script('mota-scripts', get_stylesheet_directory_uri() . '/asset/JS/scripts.js', array('jquery'), null, true);
     wp_enqueue_script('photo-template-js', get_stylesheet_directory_uri() . '/js/photo-template.js', array('jquery'), null, true);
-    wp_enqueue_script('lightbox-js', get_stylesheet_directory_uri() . '/asset/js/lightbox.js', array('jquery'), '1.0', true);
 
-    // Charger le JS d'infos photo 
-    wp_enqueue_script('photo-info-script', get_stylesheet_directory_uri() . '/assets/js/photo-info.js', array('jquery'), '1.0', true);
-
-    // Variables Ajax pour mota-scripts
+    // Ajouter les variables Ajax
     wp_localize_script('mota-scripts', 'ajax_object', array(
         'ajaxurl' => admin_url('admin-ajax.php')
     ));
 }
-
-// Ajouter les styles et scripts au bon hook
 add_action('wp_enqueue_scripts', 'mota_theme_enqueue_assets');
-
-
-
 
 // Fonction pour charger dynamiquement les photos via Ajax
 function filter_photos() {
@@ -88,5 +77,14 @@ function filter_photos() {
 
 add_action('wp_ajax_filter_photos', 'filter_photos');
 add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
+
+// Lightbox
+
+function mota_enqueue_lightbox_asset() {
+    
+    wp_enqueue_script('mota-lightbox-js', get_stylesheet_directory_uri() . '/asset/JS/lightbox.js', array('jquery'), null, true);
+}
+add_action('wp_enqueue_scripts', 'mota_enqueue_lightbox_asset');
+
 
 
