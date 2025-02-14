@@ -1,41 +1,40 @@
-<div id="photo-info" class="photo-info">
-    <div class="photo-info-left">
-        <h2><?php the_title(); ?></h2>
-        <p>Réf. : <?php echo get_field('reference'); ?></p>
-        <p>Catégorie : <?php echo get_field('categorie'); ?></p>
-        <p>Format : <?php echo get_field('format'); ?></p>
-        <p>Date de prise de vue : <?php echo get_field('date'); ?></p>
-    </div>
-    <div class="photo-info-right">
-        <img src="<?php echo get_field('fichier'); ?>" alt="<?php the_title(); ?>">
-    </div>
-    <div class="photo-info-bottom">
-        <a href="#" id="contact-link" data-ref="<?php echo get_field('reference'); ?>">Contact</a>
-        <div class="nav-links">
-            <?php previous_post_link('%link', 'Précédent'); ?>
-            <?php next_post_link('%link', 'Suivant'); ?>
+<?php
+/* Template Name: Info Photo */
+get_header(); 
+
+// Vérifie si un ID est passé en paramètre
+if (isset($_GET['photo_id'])) {
+    $photo_id = intval($_GET['photo_id']); // Sécurisation de l'ID
+
+    // Récupération des infos de la photo
+    $photo_post = get_post($photo_id);
+
+    if ($photo_post) {
+        ?>
+        <div class="photo-info-container">
+            <div class="photo-left">
+                <h1><?php echo get_the_title($photo_id); ?></h1>
+                <p>Référence : <?php the_field('reference', $photo_id); ?></p>
+                <p>Catégorie : <?php the_field('categorie', $photo_id); ?></p>
+                <p>Format : <?php the_field('format', $photo_id); ?></p>
+                <p>Date : <?php echo get_the_date('', $photo_id); ?></p>
+            </div>
+            <div class="photo-right">
+                <?php 
+                $image = get_field('fichier', $photo_id);
+                if ($image) {
+                    echo wp_get_attachment_image($image, 'large');
+                }
+                ?>
+            </div>
         </div>
-    </div>
-</div>
+        <?php
+    } else {
+        echo '<p>Photo non trouvée.</p>';
+    }
+} else {
+    echo '<p>Aucune photo sélectionnée.</p>';
+}
 
-<div class="nav-links">
-    <?php 
-        $prev_post = get_previous_post();
-        $next_post = get_next_post();
-
-        if ($prev_post) :
-            $prev_thumbnail = get_field('fichier', $prev_post->ID);
-    ?>
-        <a href="<?php echo get_permalink($prev_post->ID); ?>" class="nav-link prev" data-thumb="<?php echo $prev_thumbnail; ?>">
-            Précédent
-        </a>
-    <?php endif; ?>
-
-    <?php if ($next_post) :
-        $next_thumbnail = get_field('fichier', $next_post->ID);
-    ?>
-        <a href="<?php echo get_permalink($next_post->ID); ?>" class="nav-link next" data-thumb="<?php echo $next_thumbnail; ?>">
-            Suivant
-        </a>
-    <?php endif; ?>
-</div>
+get_footer();
+?>

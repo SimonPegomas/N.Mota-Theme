@@ -8,7 +8,7 @@ function mota_theme_enqueue_assets() {
     // Styles spécifiques
     wp_enqueue_style('header-footer-style', get_stylesheet_directory_uri() . '/header-footer.css');
     wp_enqueue_style('mota-modal', get_stylesheet_directory_uri() . '/asset/css/modal.css', array(), '1.0', 'all');
-    wp_enqueue_style('photo-info-style', get_stylesheet_directory_uri() . '/parts/photo-info.css', array(), '1.0', 'all');
+    wp_enqueue_style('photo-info-style', get_stylesheet_directory_uri() . '/asset/css/photo-info.css', array(), '1.0', 'all');
     wp_enqueue_style('lightbox-css', get_stylesheet_directory_uri() . '/asset/css/lightbox.css');
 
     // Scripts JS
@@ -17,7 +17,7 @@ function mota_theme_enqueue_assets() {
     wp_enqueue_script('lightbox-js', get_stylesheet_directory_uri() . '/asset/js/lightbox.js', array('jquery'), '1.0', true);
 
     // Charger le JS d'infos photo 
-    wp_enqueue_script('photo-info-script', get_stylesheet_directory_uri() . '/assets/js/photo-info.js', array('jquery'), '1.0', true);
+    wp_enqueue_script('photo-info-script', get_stylesheet_directory_uri() . '/asset/js/photo-info.js', array('jquery'), '1.0', true);
 
     // Variables Ajax pour mota-scripts
     wp_localize_script('mota-scripts', 'ajax_object', array(

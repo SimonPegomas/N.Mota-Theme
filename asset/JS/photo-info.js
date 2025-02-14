@@ -1,3 +1,6 @@
+
+console.log("Chargement du script photo-info.js");
+
 document.addEventListener("DOMContentLoaded", function () {
     // Sélection des éléments
     const infoModal = document.getElementById("photo-info");

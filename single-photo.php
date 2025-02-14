@@ -2,7 +2,7 @@
 /**
  * Template Name: Galerie Photo Personnalisée
  */
-get_header(); // Inclure le header WordPress
+get_header(); 
 ?>
 
 <main class="gallery-container">
@@ -92,9 +92,10 @@ get_header(); // Inclure le header WordPress
         echo '<div class="photo-hover">';
 
     // Icône "oeil" pour afficher les infos
-        echo '<button class="photo-info-btn" data-photo-id="' . get_the_ID() . '">';
-            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/eye-solid.svg" alt="Voir les infos">';
-        echo '</button>';
+        echo '<a href="' . get_permalink(get_page_by_path('info-photo')) . '?photo_id=' . get_the_ID() . '" class="photo-info-btn">';
+        echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/eye-solid.svg" alt="Voir les infos">';
+        echo '</a>';
+
 
     // Icône "plein écran" pour la lightbox
         echo '<a href="' . esc_url($URLphoto) . '" data-lightbox="galerie" class="photo-lightbox-btn">';
