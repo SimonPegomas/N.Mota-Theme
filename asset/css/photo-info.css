@@ -1,8 +1,10 @@
-/* ==============================
-   1️⃣ EFFET HOVER SUR LES PHOTOS 
-   ============================== */
+/* Hover sur les photos */
+  .hero {
+    display: none;
+}
 
-   .galerie-photo a {
+
+.galerie-photo a {
     position: relative;
     display: inline-block;
     overflow: hidden;
@@ -58,111 +60,73 @@
     opacity: 1;
 }
 
-/* ==============================
-   2️⃣ AFFICHAGE DE LA PAGE INFO PHOTO 
-   ============================== */
+/* Page info photo */ 
 
-.photo-info {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-}
-
-/* Lorsque la classe "active" est ajoutée en JS, la page info apparaît */
-.photo-info.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Conteneur des infos (divisé en deux colonnes) */
+body.photo-info-page .site-hero { display: none; }
+body.photo-info-page .site-hero { display: none; }
 .photo-info-container {
     display: flex;
-    width: 80%;
-    max-width: 1200px;
+    height: 100vh;
+    padding: 0 5%;
 }
-
-/* Zone texte à gauche */
-.photo-info-left {
+.photo-left {
     width: 50%;
-    padding: 20px;
+    padding: 10%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: flex-end;
+    background: #ffffff;
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 20.73px;
+    letter-spacing: 10%;
 }
-
-/* Zone image à droite */
-.photo-info-right {
+.photo-left h1 {
+    text-transform: uppercase !important;
+    color: black;
+    font-size: 3em;
+    font-style: italic;
+    max-width: 80%;
+    line-height: 1.2;
+}
+.photo-separator {
+    width: 100%;
+    height: 1px;
+    background: black;
+    margin: 20px 0;
+}
+.photo-inquiry {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+.photo-inquiry p {
+    font-size: 18px;
+    font-style: italic;
+}
+.contact-button {
+    background: #ccc;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.contact-button:hover {
+    background: #bbb;
+}
+.photo-right {
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1%;
 }
-
-.photo-info-right img {
+.photo-right img {
     max-width: 100%;
-    max-height: 80vh;
+    max-height: 90vh;
     object-fit: contain;
-}
-
-/* Bas de la page info */
-.photo-info-bottom {
-    height: 118px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* Liens de navigation */
-.nav-links a {
-    position: relative;
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
-}
-
-.nav-links a:hover::after {
-    content: "";
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background-size: cover;
-    background-position: center;
-    top: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 2px solid white;
-}
-
-/* Boutons dans la photo-info */
-.photo-info-buttons {
-    display: flex;
-    gap: 15px;
-}
-
-.photo-info-buttons button {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-}
-
-.photo-info-buttons button:hover {
-    background: rgba(255, 255, 255, 0.4);
 }

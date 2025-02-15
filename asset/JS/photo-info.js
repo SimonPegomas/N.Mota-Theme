@@ -69,3 +69,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// bouton conact page info photo 
+
+document.addEventListener("click", function (event) {
+    if (event.target.classList.contains("open-contact-modal")) {
+        event.preventDefault();
+        let modal = document.getElementById("contact-modal");
+        if (modal) {
+            modal.style.display = "flex";
+            modal.setAttribute("aria-hidden", "false");
+            let refInput = document.querySelector("#contact-modal input[name='your-subject']");
+            if (refInput) {
+                refInput.value = event.target.getAttribute("data-photo-ref");
+            }
+        }
+    }
+});

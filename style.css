@@ -1,4 +1,7 @@
 /* Modale  */
+.footer-inner {
+  display: none;
+}
 .contact-modal {
   display: none;
   position: fixed;
