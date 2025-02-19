@@ -12,12 +12,12 @@
     z-index: 9999;
   }
   
-  /* Lorsque la lightbox est active, on l'affiche en mode flex */
+  /* Active  */
   #lightbox-container.active {
     display: flex !important;
   }
   
-  /* Contenu de la lightbox : un carré centré */
+  
   .lightbox-content {
     position: relative;
     width: 80%;  
@@ -28,7 +28,7 @@
     justify-content: center;
   }
   
-  /* L'image s'adapte à l'intérieur du carré */
+  /* L'image le carré  */
   .lightbox-image {
     width: 80%;
     height: auto;
@@ -37,7 +37,7 @@
     object-fit: contain;
   }
   
-  /* Bouton de fermeture (croix) en haut à droite */
+  /* croix */
   .lightbox-close {
     position: absolute;
     top: 10px;
@@ -49,7 +49,7 @@
     cursor: pointer;
   }
   
-  /* Boutons Précédent et Suivant */
+  /* Boutons   */
   .lightbox-prev,
   .lightbox-next {
     position: absolute;
@@ -63,7 +63,7 @@
     padding: 10px;
   }
   
-  /* Positionnement des boutons de navigation */
+  
   .lightbox-prev {
     left: -150px;
   }
@@ -71,7 +71,7 @@
     right: -150px;
   }
   
-  /* Légende sous l'image */
+  
   .lightbox-caption {
     margin-top: 10px;
     color: #fff;
@@ -90,4 +90,23 @@
 
 .lightbox-next:hover img {
     content: url("../images/nextB.png"); /* Image au hover */
+}
+
+.lightbox-info {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    padding: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-family: "Space Mono", monospace;
+}
+
+@media (max-width: 900px) {
+
+    .lightbox-prev,
+    .lightbox-next,
+    .lightbox-close {
+        display: none;
+    }  
 }

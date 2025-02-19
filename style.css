@@ -9,7 +9,7 @@
   left: 0%;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+  background-color: rgba(0, 0, 0, 0.7); 
   justify-content: center;
   align-items: center;
   z-index: 9999;
@@ -82,17 +82,15 @@
   border-color: rgb(0, 0, 0);
 }
 
-/* Styles spécifiques pour le bouton Envoyer */
+
 .modal-content textarea {
   height: 100px;
 }
 
-/* Ajustement pour le bouton Envoyer (même largeur que le champ Message) */
+ */
 .modal-content button {
-  width: 100%; /* Fait la même largeur que les autres champs */
+  width: 100%; 
 }
-
-
 
 
 
@@ -102,8 +100,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 60px auto 280px auto;
-  width: 80%; /* Utilisation d'une largeur fixe pour centrer */
+  margin: 60px auto 100px auto;
+  width: 80%; 
 }
 
 .search-filters .filter-group {
@@ -116,7 +114,11 @@
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 18px;
+  font-family: 'Space Mono', monospace;
+  background-color: white;
+  color: black;
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
 }
 
 .galerie-photo {
@@ -148,13 +150,16 @@
   .search-filters {
     flex-direction: column;
     align-items: flex-start;
-    width: 90%; /* Réduction de la largeur sur mobile */
+    width: 80%; 
   }
 
   .search-filters .filter-group {
     flex-direction: column;
-    gap: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    justify-content: center;
   }
+   
 
   .search-filters select {
     width: 100%;
@@ -213,8 +218,16 @@
   -webkit-text-stroke: 2px white; /* Contour blanc */
   text-align: center;
 }
-
+@media screen and (max-width: 900px) {
+  .hero h1 {
+    font-size: 48px;
+    width: 80%;
+  }
+}
 /* Hover galerie */ 
+.copyright {
+  color: #ffffff !important;
+}
 
 .photo-item {
   position: relative;
@@ -249,9 +262,8 @@
 
 .photo-hover button,
 .photo-hover a {
-  background: rgba(255, 255, 255, 0.8); /* Fond blanc semi-transparent */
-  border: none;
-  padding: 15px; /* Augmente la taille */
+  background: rgba(255, 255, 255, 0.8); 
+  padding: 15px; 
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -260,15 +272,15 @@
 }
 
 .photo-hover img {
-  width: 32px; /* Icônes plus grandes */
+  width: 32px;
   height: 32px;
-  filter: invert(0); /* Icônes en noir */
+  filter: invert(0); 
 }
 
 .photo-hover button:hover,
 .photo-hover a:hover {
-  background: rgba(255, 255, 255, 1); /* Fond blanc opaque au survol */
-  transform: scale(1.1); /* Léger zoom au survol */
+  background: rgba(255, 255, 255, 1); 
+  transform: scale(1.1); 
 }
 
 

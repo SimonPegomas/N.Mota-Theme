@@ -5,7 +5,7 @@
   left: 0%;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+  background-color: rgba(0, 0, 0, 0.7); 
   justify-content: center;
   align-items: center;
   z-index: 9999;
@@ -22,7 +22,7 @@
   position: relative;
 }
 
-/* Bouton de fermeture */
+
 .close-button {
   position: absolute;
   top: 10px;
@@ -78,12 +78,11 @@
   border-color: rgb(0, 0, 0);
 }
 
-/* Styles spécifiques pour le bouton Envoyer */
 .modal-content textarea {
   height: 100px;
 }
 
-/* Ajustement pour le bouton Envoyer (même largeur que le champ Message) */
+
 .modal-content button {
-  width: 100%; /* Fait la même largeur que les autres champs */
+  width: 100%; 
 }

@@ -117,7 +117,7 @@ if (isset($_GET['photo_id'])) {
         echo '<p>Photo non trouvée.</p>';
     }
 } else {
-    echo '<p>Aucune photo sélectionnée.</p>';
+    echo '<p></p>';
 }
 
 get_footer();

@@ -13,7 +13,7 @@ function mota_theme_enqueue_assets() {
 
     // Scripts JS
     wp_enqueue_script('mota-scripts', get_stylesheet_directory_uri() . '/asset/js/scripts.js', array('jquery'), null, true);
-    wp_enqueue_script('photo-template-js', get_stylesheet_directory_uri() . '/js/photo-template.js', array('jquery'), null, true);
+   
     wp_enqueue_script('lightbox-js', get_stylesheet_directory_uri() . '/asset/js/lightbox.js', array('jquery'), '1.0', true);
 
     // Charger le JS d'infos photo 
@@ -78,13 +78,47 @@ function filter_photos() {
             echo '<img src="' . esc_url($URLphoto) . '" alt="' . esc_attr(get_the_title()) . '">';
         endwhile;
     else:
-        echo '<p>Aucune photo trouvée.</p>';
+        echo '<p></p>';
     endif;
 
     wp_reset_postdata();
     echo ob_get_clean();
     die();
 }
+// recuperation des infos 
+
+function get_photo_details($photo_id) {
+    if (!$photo_id) return null;
+
+    $photo_post = get_post($photo_id);
+
+    if (!$photo_post) return null;
+
+    return [
+        'id'        => $photo_id,
+        'titre'     => get_the_title($photo_id),
+        'reference' => get_field('reference_', $photo_id) ?: 'Non disponible',
+        'categorie' => get_field('categorie', $photo_id) ?: 'Non classé',
+        'format'    => get_field('format', $photo_id) ?: 'Inconnu',
+        'date'      => get_field('annee', $photo_id) ?: 'Date inconnue',
+        'image'     => get_field('fichier', $photo_id)
+    ];
+}
+function ajax_get_photo_details() {
+    $photo_id = isset($_GET['photo_id']) ? intval($_GET['photo_id']) : 0;
+    $photo_info = get_photo_details($photo_id);
+
+    if ($photo_info) {
+        wp_send_json($photo_info);
+    } else {
+        wp_send_json(['error' => 'Photo introuvable'], 404);
+    }
+
+    wp_die();
+}
+
+add_action('wp_ajax_get_photo_details', 'ajax_get_photo_details');
+add_action('wp_ajax_nopriv_get_photo_details', 'ajax_get_photo_details');
 
 add_action('wp_ajax_filter_photos', 'filter_photos');
 add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');

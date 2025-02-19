@@ -58,7 +58,7 @@ $skip_link_url = apply_filters( 'hello_elementor_skip_link_url', '#content' );
     		<ul>
         		<li><a href="home">Accueil</a></li>
         		<li><a href="About">À propos</a></li>
-        		<li><a href="Contact">Contact</a></li>
+        		<li><a href="#" class="menu-link open-contact-modal">Contact</a></li>
     		</ul>
 </div>
 
@@ -81,5 +81,5 @@ if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_
 		}
 	}
 }
+?>
 
-get_template_part('parts/hero'); ?>

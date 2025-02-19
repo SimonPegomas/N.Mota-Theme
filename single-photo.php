@@ -3,6 +3,7 @@
  * Template Name: Galerie Photo Personnalisée
  */
 get_header(); 
+get_template_part('parts/hero'); 
 ?>
 
 <main class="gallery-container">
@@ -27,7 +28,7 @@ get_header();
         <div class="filter-group">
             <!-- Filtre par Thème -->
             <select name="theme" id="filter-theme">
-                <option value="">Thème</option>
+                <option value="">CATEGORIES</option>
                 <?php if ($themes) : 
                     foreach ($themes as $theme) : ?>
                         <option value="<?php echo esc_attr($theme->term_id); ?>">
@@ -39,7 +40,7 @@ get_header();
 
             <!-- Filtre par Format -->
             <select name="format" id="filter-format">
-                <option value="">Format</option>
+                <option value="">FORMATS</option>
                 <?php if ($formats) : 
                     foreach ($formats as $format) : ?>
                         <option value="<?php echo esc_attr($format->term_id); ?>">
@@ -52,7 +53,7 @@ get_header();
 
         <!-- Filtre Trier par -->
         <select name="sort" id="filter-sort">
-            <option value="">Trier par</option>
+            <option value="">TRIER PAR</option>
             <?php if ($sort_options) : 
                 foreach ($sort_options as $sort) : ?>
                     <option value="<?php echo esc_attr($sort['value']); ?>">
@@ -81,8 +82,8 @@ get_header();
             $photo_query->the_post();
             $URLphoto  = get_field('fichier', get_the_ID());
             $alt_text  = get_the_title();
-            // Récupérer la référence et la catégorie depuis ACF (vérifiez bien les noms des champs)
-            $reference = get_field('reference', get_the_ID());
+            // Récupérer la référence et la catégorie depuis ACF 
+            $reference = get_field('reference_', get_the_ID());
             $categorie = get_field('categorie', get_the_ID());
             
             echo '<div class="photo-item">';
@@ -91,19 +92,22 @@ get_header();
     // Conteneur des icônes qui apparaissent au hover
         echo '<div class="photo-hover">';
 
-    // Icône "oeil" pour afficher les infos
+    // Icône "oeil" 
         echo '<a href="' . get_permalink(get_page_by_path('info-photo')) . '?photo_id=' . get_the_ID() . '" class="photo-info-btn">';
         echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/eye-solid.svg" alt="Voir les infos">';
         echo '</a>';
 
 
-    // Icône "plein écran" pour la lightbox
-        echo '<a href="' . esc_url($URLphoto) . '" data-lightbox="galerie" class="photo-lightbox-btn">';
-            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/fullscreen.svg" alt="Plein écran">';
+   // Icône "plein écran" lightbox
+        echo '<a href="' . esc_url($URLphoto) . '" 
+            data-lightbox="galerie" 
+            data-photo-id="' . get_the_ID() . '" 
+                class="photo-lightbox-btn">';
+        echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/fullscreen.svg" alt="Plein écran">';
         echo '</a>';
 
-        echo '</div>'; // Fin de .photo-hover
-        echo '</div>'; // Fin de .photo-item
+        echo '</div>'; 
+        echo '</div>'; 
 
         }
     } else {
@@ -120,4 +124,4 @@ get_header();
     </div>
 </main>
 
-<?php get_footer(); // Inclure le footer WordPress ?>
+<?php get_footer();  ?>
