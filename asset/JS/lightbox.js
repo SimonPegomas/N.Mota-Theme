@@ -6,6 +6,17 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateGalleryLinks() {
       galleryLinks = Array.from(document.querySelectorAll('a[data-lightbox="galerie"]'));
   }
+  function attachLightboxListeners() {
+    document.querySelector(".galerie-photo")?.addEventListener("click", function (e) {
+        const link = e.target.closest('a[data-lightbox="galerie"]');
+        if (link) {
+            e.preventDefault();
+            updateGalleryLinks();
+            currentIndex = galleryLinks.indexOf(link);
+            openLightbox(currentIndex);
+        } // Ajout de l'accolade fermante correcte
+    });
+}
 
   // Récupération des éléments de la lightbox
   const lightboxContainer = document.getElementById('lightbox-container');
@@ -76,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  // Écouteurs sur les boutons de navigation et de fermeture
+  // Listenner sur les boutons de navigation et de fermeture
   lightboxClose.addEventListener('click', closeLightbox);
   lightboxNext.addEventListener('click', function (e) {
       e.stopPropagation();
@@ -87,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
       showPrev();
   });
 
-  // Fermer la lightbox en cliquant en dehors du contenu
+  // Fermer la lightbox en cliquant en dehors de l'image
   lightboxContainer.addEventListener('click', function (e) {
       if (e.target === lightboxContainer) {
           closeLightbox();

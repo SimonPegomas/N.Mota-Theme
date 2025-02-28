@@ -75,7 +75,30 @@ function filter_photos() {
     if ($query->have_posts()) :
         while ($query->have_posts()) : $query->the_post();
             $URLphoto = get_field('fichier', get_the_ID());
-            echo '<img src="' . esc_url($URLphoto) . '" alt="' . esc_attr(get_the_title()) . '">';
+            echo '<div class="photo-item">';
+            echo '<img src="' . esc_url($URLphoto) . '" alt="' . esc_attr($alt_text) . '">';
+    
+        // Conteneur des icônes qui apparaissent au hover
+            echo '<div class="photo-hover">';
+    
+        // Icône "oeil" 
+            echo '<a href="' . get_permalink(get_page_by_path('info-photo')) . '?photo_id=' . get_the_ID() . '" class="photo-info-btn">';
+            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/eye-solid.svg" alt="Voir les infos">';
+            echo '</a>';
+    
+    
+       // Icône "plein écran" lightbox
+            echo '<a href="' . esc_url($URLphoto) . '" 
+                data-lightbox="galerie" 
+                data-photo-id="' . get_the_ID() . '" 
+                    class="photo-lightbox-btn">';
+            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/fullscreen.svg" alt="Plein écran">';
+            echo '</a>';
+    
+            echo '</div>'; 
+            echo '</div>'; 
+    
+            
         endwhile;
     else:
         echo '<p></p>';

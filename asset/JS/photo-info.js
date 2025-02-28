@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Remplissage auto de la modale de contact
+    // Remplissage auto de la modale 
     if (contactLink) {
         contactLink.addEventListener("click", (e) => {
             e.preventDefault();
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Gestion des miniatures au survol des liens de navigation
+    
     document.querySelectorAll(".nav-link").forEach(link => {
         link.addEventListener("mouseover", function () {
             this.style.setProperty("--thumbnail", `url(${this.getAttribute("data-thumb")})`);
