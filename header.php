@@ -37,7 +37,7 @@ $skip_link_url = apply_filters( 'hello_elementor_skip_link_url', '#content' );
                 <nav>
                     <ul>
                         <li><a href="home" class="menu-link"> Accueil </a></li> 
-                        <li><a href="About" class="menu-link"> A propos </a></li>
+                        <li><a href= "http://nathalie-mota.local/a-propos/" class="menu-link"> A propos </a></li>
 						<li><a href="#" class="menu-link open-contact-modal">Contact</a></li>
 						
 

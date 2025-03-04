@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 3️ Filtrage et Load More (Optimisé)
+    // 3️ Filtrage et Load More 
     let page = 1;
     const galerie = document.querySelector(".galerie-photo");
     const loadMoreBtn = document.getElementById("load-more");
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let format = document.getElementById("filter-format")?.value;
         let sortOrder = document.getElementById("filter-sort")?.value;
 
-        if (reset) page = 1; // Réinitialisation de la pagination
+        if (reset) page = 1; 
 
         fetch(ajax_object.ajaxurl, {
             method: "POST",
@@ -132,4 +132,49 @@ document.addEventListener("DOMContentLoaded", function () {
             loadPhotos(false);
         });
     }
+});
+
+// 4️ Info hover galerie 
+// Fonction AJAX pour récupérer les informations de la photo
+document.querySelectorAll('.photo-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        const photoId = item.querySelector('.photo-info-left').getAttribute('data-photo-id');
+        if (photoId) {
+            fetch(`${ajax_object.ajaxurl}?action=get_photo_details&photo_id=${photoId}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Mettre à jour seulement la catégorie sans toucher au titre
+                    const rightInfo = item.querySelector('.photo-info-right');
+                    rightInfo.textContent = data.categorie || 'Non classé';
+                })
+                .catch(error => console.error('Erreur lors de la récupération des infos :', error));
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".custom-select").forEach(select => {
+        let selected = select.querySelector(".select-selected");
+        let options = select.querySelector(".select-options");
+
+        // Toggle dropdown visibility
+        selected.addEventListener("click", function() {
+            select.classList.toggle("active");
+        });
+
+        // Handle option selection
+        select.querySelectorAll(".select-option").forEach(option => {
+            option.addEventListener("click", function() {
+                selected.textContent = this.textContent;
+                select.classList.remove("active");
+            });
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener("click", function(e) {
+            if (!select.contains(e.target)) {
+                select.classList.remove("active");
+            }
+        });
+    });
 });

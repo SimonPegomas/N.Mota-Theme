@@ -20,9 +20,10 @@ if (isset($_GET['photo_id'])) {
         $reference = get_field('reference_', $photo_id) ?: 'Non disponible';
         $format = get_field('format', $photo_id) ?: 'Inconnu';
         $date = get_field('annee', $photo_id) ?: 'Date inconnue';
+        $type = get_field('type', $photo_id) ?: 'Type inconnue';
         $image = get_field('fichier', $photo_id);
-
-        // Récupération des termes de la taxonomie "categorie"
+        
+        // Récupération des termes de la taxonomie "categorie" et "format"
         $terms = wp_get_post_terms($photo_id, 'categorie'); 
         
         
@@ -41,10 +42,13 @@ if (isset($_GET['photo_id'])) {
             <div class="photo-info-container">
                 <div class="photo-left">
                     <h1><?php echo esc_html($titre); ?></h1>
-                    <p>Référence : <?php echo esc_html($reference); ?></p>
-                    <p>Catégorie : <?php echo esc_html($categorie); ?></p>
-                    <p>Format : <?php echo esc_html($format); ?></p>
-                    <p>Date : <?php echo esc_html($date); ?></p>
+                    <p>REFERENCE : <?php echo esc_html($reference); ?></p>
+                    <p>CATEGORIE: <?php echo esc_html($categorie); ?></p>
+                    <p>FORMAT : <?php echo esc_html($format); ?></p>
+                    <p>TYPE : <?php echo esc_html($type); ?></p>
+                    <p>ANNEE : <?php echo esc_html($date); ?></p>
+
+                    <div class="photo-separator-half"></div>
                 </div>
                 <div class="photo-right">
                     <?php 
@@ -58,7 +62,6 @@ if (isset($_GET['photo_id'])) {
             </div>
         </section>
 
-        <div class="photo-separator"></div>
 
         <section>
             <div class="interest-container">
@@ -75,7 +78,7 @@ if (isset($_GET['photo_id'])) {
     <div class="photo-separator"></div>
     <div class="photo-suggestions">
         <h2>Vous aimerez aussi</h2>
-        <div class="galerie-photo">
+        <div class="galerie-photo galerie-photo-info">
         <?php
 // Récupération des termes de la catégorie pour la photo actuelle
 $terms = wp_get_post_terms($photo_id, 'categorie'); 
@@ -122,12 +125,12 @@ if (!empty($terms) && !is_wp_error($terms) && isset($terms[0])) {
 
                             // Icône "oeil" pour afficher les infos
                             echo '<a href="' . get_permalink(get_page_by_path('info-photo')) . '?photo_id=' . get_the_ID() . '" class="photo-info-btn">';
-                            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/eye-solid.svg" alt="Voir les infos">';
+                            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/eye-solid.png" alt="Voir les infos">';
                             echo '</a>';
 
                             // Icône "plein écran" pour la lightbox
                             echo '<a href="' . esc_url($URLphoto) . '" data-lightbox="galerie" class="photo-lightbox-btn">';
-                            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/fullscreen.svg" alt="Plein écran">';
+                            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/fullscreen.png" alt="Plein écran">';
                             echo '</a>';
 
                             echo '</div>'; // Fin de .photo-hover
@@ -148,9 +151,6 @@ if (!empty($terms) && !is_wp_error($terms) && isset($terms[0])) {
     } else {
         echo '<p>Photo non trouvée.</p>';
     }
-} else {
-    echo '<p>Paramètre photo_id manquant.</p>';
-}
-
+} 
 get_footer();
 ?>

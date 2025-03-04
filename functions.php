@@ -83,7 +83,7 @@ function filter_photos() {
     
         // Icône "oeil" 
             echo '<a href="' . get_permalink(get_page_by_path('info-photo')) . '?photo_id=' . get_the_ID() . '" class="photo-info-btn">';
-            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/eye-solid.svg" alt="Voir les infos">';
+            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/eye-solid.png" alt="Voir les infos">';
             echo '</a>';
     
     
@@ -92,7 +92,7 @@ function filter_photos() {
                 data-lightbox="galerie" 
                 data-photo-id="' . get_the_ID() . '" 
                     class="photo-lightbox-btn">';
-            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/fullscreen.svg" alt="Plein écran">';
+            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/fullscreen.png" alt="Plein écran">';
             echo '</a>';
     
             echo '</div>'; 

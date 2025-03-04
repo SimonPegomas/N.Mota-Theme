@@ -27,7 +27,7 @@ if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_
 
 
 <?php
-// Vérifie si un ID de photo est passé dans l'URL
+
 if (isset($_GET['photo_id'])) {
     $photo_id = intval($_GET['photo_id']); // Sécurisation de l'ID
 

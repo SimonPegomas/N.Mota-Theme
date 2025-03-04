@@ -25,35 +25,45 @@ get_template_part('parts/hero');
 
     <!-- Filtres de recherche -->
     <div class="search-filters">
-        <div class="filter-group">
-            <select name="theme" id="filter-theme">
-                <option value="">CATEGORIES</option>
+    <div class="filter-group">
+        <!-- CATEGORIES -->
+        <div class="custom-select">
+            <div class="select-selected">CATEGORIES</div>
+            <div class="select-options">
                 <?php foreach ($themes as $theme) : ?>
-                    <option value="<?php echo esc_attr($theme->term_id); ?>">
+                    <div class="select-option" data-value="<?php echo esc_attr($theme->term_id); ?>">
                         <?php echo esc_html($theme->name); ?>
-                    </option>
+                    </div>
                 <?php endforeach; ?>
-            </select>
-            
-            <select name="format" id="filter-format">
-                <option value="">FORMATS</option>
-                <?php foreach ($formats as $format) : ?>
-                    <option value="<?php echo esc_attr($format->term_id); ?>">
-                        <?php echo esc_html($format->name); ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+            </div>
         </div>
 
-        <select name="sort" id="filter-sort">
-            <option value="">TRIER PAR</option>
-            <?php foreach ($sort_options as $sort) : ?>
-                <option value="<?php echo esc_attr($sort['value']); ?>">
-                    <?php echo esc_html($sort['label']); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <!-- FORMATS -->
+        <div class="custom-select">
+            <div class="select-selected">FORMATS</div>
+            <div class="select-options">
+                <?php foreach ($formats as $format) : ?>
+                    <div class="select-option" data-value="<?php echo esc_attr($format->term_id); ?>">
+                        <?php echo esc_html($format->name); ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
     </div>
+
+    <!-- TRIER PAR -->
+    <div class="custom-select">
+        <div class="select-selected">TRIER PAR</div>
+        <div class="select-options">
+            <?php foreach ($sort_options as $sort) : ?>
+                <div class="select-option" data-value="<?php echo esc_attr($sort['value']); ?>">
+                    <?php echo esc_html($sort['label']); ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
 
     <!-- Affichage des photos -->
     <div class="galerie-photo">
@@ -75,17 +85,29 @@ get_template_part('parts/hero');
                 $categories = get_the_terms(get_the_ID(), 'categorie');
                 $categorie_nom = $categories ? $categories[0]->name : 'Non classé';
                 ?>
-                <div class="photo-item">
-                    <img src="<?php echo esc_url($URLphoto); ?>" alt="<?php echo esc_attr($alt_text); ?>">
-                    <div class="photo-hover">
-                        <a href="<?php echo get_permalink(get_page_by_path('info-photo')); ?>?photo_id=<?php echo get_the_ID(); ?>" class="photo-info-btn">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/asset/icons/eye-solid.svg" alt="Voir les infos">
-                        </a>
-                        <a href="<?php echo esc_url($URLphoto); ?>" data-lightbox="galerie" data-photo-id="<?php echo get_the_ID(); ?>" class="photo-lightbox-btn">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/asset/icons/fullscreen.svg" alt="Plein écran">
-                        </a>
-                    </div>
-                </div>
+                <?php
+                echo '<div class="photo-item">';
+                echo '<img src="' . esc_url($URLphoto) . '" alt="' . esc_attr($alt_text) . '">';
+                
+                // Conteneur des icônes qui apparaissent au hover
+                echo '<div class="photo-hover">';
+                
+                // Ajout des informations dynamiques de la photo avec des balises PHP
+                echo '<div class="photo-info photo-info-left" data-photo-id="' . get_the_ID() . '">' . get_the_title() . '</div>';
+                echo '<div class="photo-info photo-info-right" data-photo-id="' . get_the_ID() . '">' . get_the_terms(get_the_ID(), 'categorie')[0]->name . '</div>';
+
+                
+                echo '<a href="' . get_permalink(get_page_by_path('info-photo')) . '?photo_id=' . get_the_ID() . '" class="photo-info-btn">';
+                echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/eye-solid.png" alt="Voir les infos">';
+                echo '</a>';
+                echo '<a href="' . esc_url($URLphoto) . '" data-lightbox="galerie" class="photo-lightbox-btn">';
+                echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/fullscreen.png" alt="Plein écran">';
+                echo '</a>';
+                
+                echo '</div>'; // Fin de .photo-hover
+                echo '</div>'; // Fin de .photo-item
+                
+                ?>
                 <?php
             }
         } else {

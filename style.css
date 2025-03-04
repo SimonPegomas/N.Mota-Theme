@@ -2,6 +2,30 @@
 .footer-inner {
   display: none;
 }
+
+
+/* Image du header */
+.modal-header-img {
+  position: absolute;
+  top: 8px; /* Fait dépasser l’image */
+  left: 0%;
+  right: 0%;
+  width: 120%;
+  height: 10%;
+  object-fit: cover;
+  overflow: hidden;
+}
+.modal-content {
+  position: relative;
+  padding-top: 150px; 
+  background-color: white; 
+}
+
+
+.modal-close {
+  display: none;
+}
+
 .contact-modal {
   display: none;
   position: fixed;
@@ -21,13 +45,14 @@
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   max-width: 500px;
-  width: 90%;
-  border: 2px solid #000; /* Cadre noir */
+  width: 50%;
+  border: 2px solid #000; 
   position: relative;
 }
 
 /* Bouton de fermeture */
 .close-button {
+  display: none;
   position: absolute;
   top: 10px;
   right: 15px;
@@ -37,19 +62,62 @@
 }
 
 /* Champs de formulaire */
-.modal-content input,
-.modal-content textarea,
-.modal-content button {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-  font-family: 'Space Mono', monospace; /* Utiliser la même police */
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+
+/* Centrer la modale */
+.wpcf7-form {
+  width: 70%;
+  max-width: 400px; 
+  margin: auto;
+  padding: 40px;
+  background-color: white;
 }
+
+/* Style des labels */
+.wpcf7-form label {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+/* Style des champs */
+.wpcf7-form input[type="text"],
+.wpcf7-form input[type="email"],
+.wpcf7-form textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-family: 'Space Mono', monospace;
+  box-sizing: border-box;
+  display: block;
+  margin-bottom: 15px;
+}
+
+/* Style du champ message */
+.wpcf7-form textarea {
+  height: 150px;
+  resize: none; 
+}
+
+/* Bouton d'envoi */
+.wpcf7-form input[type="submit"] {
+  width: 100%;
+  background-color: #d3d3d3; 
+  color: black;
+  padding: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: 'Space Mono', monospace;
+}
+
+.wpcf7-form input[type="submit"]:hover {
+  background-color: #b0b0b0; 
+}
+
+
 
 /* Bouton Envoyer */
 .modal-content button {
@@ -69,7 +137,6 @@
   -moz-user-select: none;
   user-select: none;
   background-color: rgb(146, 146, 146);
-  border: 1px solid rgb(0, 0, 0) ; 
   padding: .5rem 1rem;
   font-size: 1rem;
   border-radius: 3px;
@@ -81,12 +148,6 @@
   color: #fff;
   border-color: rgb(0, 0, 0);
 }
-
-
-.modal-content textarea {
-  height: 100px;
-}
-
  */
 .modal-content button {
   width: 100%; 
@@ -101,7 +162,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 60px auto 100px auto;
-  width: 80%; 
+  width: 80%;
 }
 
 .search-filters .filter-group {
@@ -109,17 +170,47 @@
   gap: 10px;
 }
 
-.search-filters select {
+.custom-select {
+  position: relative;
   width: 150px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 18px;
   font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+}
+
+.select-selected {
   background-color: white;
   color: black;
-  transition: background-color 0.3s, color 0.3s, border 0.3s;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
 }
+
+.select-options {
+  display: none;
+  position: absolute;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  z-index: 10;
+}
+
+.select-option {
+  padding: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.select-option:hover {
+  background-color: red;
+  color: white;
+}
+
+.custom-select.active .select-options {
+  display: block;
+}
+
 
 .galerie-photo {
   display: grid;
@@ -142,7 +233,7 @@
 
 @media screen and (max-width: 900px) {
   .photo-grid, .galerie-photo {
-    grid-template-columns: repeat(2, 1fr); /* Maintien de 2 colonnes sur tablettes */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -215,7 +306,7 @@
   font-style: italic;
   color: transparent; 
   opacity: 0.7;
-  -webkit-text-stroke: 2px white; /* Contour blanc */
+  -webkit-text-stroke: 2px white; 
   text-align: center;
 }
 @media screen and (max-width: 900px) {
@@ -225,62 +316,114 @@
   }
 }
 /* Hover galerie */ 
-.copyright {
-  color: #ffffff !important;
-}
 
 .photo-item {
   position: relative;
   overflow: hidden;
+  display: inline-block;
 }
+
 
 .photo-item img {
   transition: filter 0.3s ease;
   width: 100%;
   display: block;
-  
 }
 
 .photo-item:hover img {
   filter: brightness(0.7);
 }
 
+/* Conteneur des icônes */
 .photo-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Icône "Eye" au centre */
+.photo-hover .photo-info-btn {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  gap: 50px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  height: 90px;
+  width: 90px;
+  color: transparent !important;
+  z-index: 999;
 }
 
+/* Icône fullscreen  */
+.photo-hover .photo-lightbox-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: black; 
+  width: 55px; 
+  height: 55px;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; 
+}
+
+/* Icônes */
+
+.photo-hover a img {
+  width: 50px;  
+  height: 50px;
+  cursor: pointer;
+  filter: brightness(0) invert(1); 
+  transition: transform 0.2s ease-in-out, filter 0.3s ease-in-out;
+  z-index: 2000 ;
+}
+
+/* Effet zoom au survol des icônes */
+.photo-hover a:hover img {
+  
+  transform: scale(1.5); /
+  
+}
+
+
+/* Affichage des icônes au survol */
 .photo-item:hover .photo-hover {
   opacity: 1;
 }
 
-.photo-hover button,
-.photo-hover a {
-  background: rgba(255, 255, 255, 0.8); 
-  padding: 15px; 
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s ease, transform 0.2s ease;
+/* Conteneur des infos */
+
+
+/* Afficher les infos au survol */
+.photo-item:hover .photo-hover {
+  opacity: 1;
 }
 
-.photo-hover img {
-  width: 32px;
-  height: 32px;
-  filter: invert(0); 
+/* Conteneur des infos  */
+.photo-info-left, .photo-info-right {
+  position: absolute;
+  bottom: 10px; 
+  width: 50%; 
+  color: #fff; 
+  font-size: 14px;
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  padding: 0 10px; 
 }
 
-.photo-hover button:hover,
-.photo-hover a:hover {
-  background: rgba(255, 255, 255, 1); 
-  transform: scale(1.1); 
+/* Information à gauche (titre) */
+.photo-info-left {
+  text-align: left; 
+  left: 0; 
 }
 
-
+/* Information à droite (catégorie) */
+.photo-info-right {
+  text-align: right; 
+  right: 0; 
+}
