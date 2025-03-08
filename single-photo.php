@@ -65,16 +65,20 @@ get_template_part('parts/hero');
         'post_status'    => 'publish',
         'paged'          => 1,
     );
+
     $photo_query = new WP_Query($args);
-    if ($photo_query->have_posts()) {
-        while ($photo_query->have_posts()) {
-            $photo_query->the_post();
-            $URLphoto  = get_field('fichier', get_the_ID());
-            $alt_text  = get_the_title();
-            $reference = get_field('reference', get_the_ID());
-            $categories = get_the_terms(get_the_ID(), 'categorie');
-            $categorie_nom = !empty($categories) ? esc_attr($categories[0]->name) : 'Non classé';
-            ?>
+    $no_more_photos = true; // Par défaut, on suppose qu'il n'y a pas de photos
+
+if ($photo_query->have_posts()) {
+    while ($photo_query->have_posts()) {
+        $photo_query->the_post();
+        $no_more_photos = false; // Il y a des photos, donc on affiche le bouton
+        $URLphoto  = get_field('fichier', get_the_ID());
+        $alt_text  = get_the_title();
+        $reference = get_field('reference', get_the_ID());
+        $categories = get_the_terms(get_the_ID(), 'categorie');
+        $categorie_nom = !empty($categories) ? esc_attr($categories[0]->name) : 'Non classé';
+        ?>
 
             <div class="photo-item" 
                 data-photo-id="<?php echo get_the_ID(); ?>" 
@@ -114,10 +118,9 @@ get_template_part('parts/hero');
 </div>
 
 
-    <div id="load-more-container">
-        <button id="load-more">Charger plus</button>
-       
-    </div>
+    <div class="load-more-container" <?php echo $no_more_photos ? 'style="display: none;"' : ''; ?>>
+    <button id="load-more">Charger plus</button>
+</div>
 </main>
 
 <?php get_footer(); ?>

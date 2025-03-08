@@ -29,30 +29,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Ouvre la lightbox pour l'image correspondant à l'index donné
   function openLightbox(index) {
-      updateGalleryLinks();
-      currentIndex = index;
-      const link = galleryLinks[currentIndex];
-      if (!link) return;
+    updateGalleryLinks();
+    currentIndex = index;
+    const link = galleryLinks[currentIndex];
+    if (!link) return;
 
-      lightboxImage.src = link.getAttribute('href');
+    lightboxImage.src = link.getAttribute('href');
 
-      // Récupération de l'ID de la photo
-      const photoId = link.getAttribute('data-photo-id');
+    // Récupération de l'ID de la photo
+    const photoId = link.getAttribute('data-photo-id');
 
-      // Chargement dynamique des informations via AJAX
-      if (photoId) {
-          fetch(`${ajax_object.ajaxurl}?action=get_photo_details&photo_id=${photoId}`)
-              .then(response => response.json())
-              .then(data => {
-                  lightboxReference.textContent = data.reference || 'Absent';
-                  lightboxCategory.textContent = data.categorie || 'Non classé';
-              })
-              .catch(error => console.error('Erreur lors de la récupération des infos :', error));
-      }
+    // Vérification si photoId est bien récupéré
+    console.log("Photo ID récupéré :", photoId);
 
-      // Affiche la lightbox en ajoutant la classe "active"
-      lightboxContainer.classList.add('active');
-  }
+    if (!photoId) {
+        console.error("Erreur : Aucun photo ID trouvé !");
+        return;
+    }
+
+    // Chargement dynamique des informations via AJAX
+    fetch(`${ajax_object.ajaxurl}?action=get_photo_details&photo_id=${photoId}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Données récupérées :", data); // Vérifier si les infos arrivent bien
+            lightboxReference.textContent = data.reference || 'Absent';
+            lightboxCategory.textContent = data.categorie || 'Non classé';
+        })
+        .catch(error => console.error('Erreur lors de la récupération des infos :', error));
+
+    // Affiche la lightbox en ajoutant la classe "active"
+    lightboxContainer.classList.add('active');
+}
+
 
   // Ferme la lightbox
   function closeLightbox() {

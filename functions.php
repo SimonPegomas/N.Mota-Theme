@@ -98,8 +98,7 @@ function filter_photos() {
             </div>
             <?php
         endwhile;
-    else:
-        echo '<p>Aucune photo trouvée.</p>';
+   
     endif;
 
     wp_reset_postdata();
