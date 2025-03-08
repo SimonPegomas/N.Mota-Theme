@@ -1,59 +1,76 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Le fichier JS est bien chargé !");
+    console.log("Le fichier script JS est bien chargé !");
+    
+    // Fonction de mise à jour des infos des photos
+    function updatePhotoInfo() {
+        document.querySelectorAll('.photo-item').forEach(item => {
+            const photoId = item.getAttribute('data-photo-id');
+            if (!photoId) return;
 
-    // 1️ Menu Burger
+            let leftInfo = item.querySelector('.photo-info-left');
+            let rightInfo = item.querySelector('.photo-info-right');
+
+            if (!leftInfo) {
+                leftInfo = document.createElement('div');
+                leftInfo.className = 'photo-info photo-info-left';
+                leftInfo.setAttribute('data-photo-id', photoId);
+                leftInfo.textContent = item.getAttribute('data-title') || 'Titre inconnu';
+                item.appendChild(leftInfo);
+            }
+
+            if (!rightInfo) {
+                rightInfo = document.createElement('div');
+                rightInfo.className = 'photo-info photo-info-right';
+                rightInfo.setAttribute('data-photo-id', photoId);
+                rightInfo.textContent = item.getAttribute('data-category') || 'Non classé';
+                item.appendChild(rightInfo);
+            }
+        });
+        console.log("Informations des photos mises à jour.");
+    }
+    
+    updatePhotoInfo();
+
+    // Menu Burger
     const burgerMenu = document.getElementById('burger-menu');
     const menuOverlay = document.getElementById('menu-overlay');
+    if (burgerMenu && menuOverlay) {
+        burgerMenu.addEventListener('click', function (event) {
+            event.stopPropagation();
+            burgerMenu.classList.toggle('open');
+            menuOverlay.classList.toggle('active');
+            console.log("Burger menu cliqué ! État actuel : ", menuOverlay.classList.contains('active') ? "OUVERT" : "FERMÉ");
+        });
 
-    if (!burgerMenu || !menuOverlay) {
-        console.error("Erreur : les éléments #burger-menu ou #menu-overlay sont introuvables !");
-        return;
+        menuOverlay.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function () {
+                burgerMenu.classList.remove('open');
+                menuOverlay.classList.remove('active');
+                console.log("Lien cliqué, fermeture du menu.");
+            });
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!menuOverlay.contains(event.target) && !burgerMenu.contains(event.target)) {
+                burgerMenu.classList.remove('open');
+                menuOverlay.classList.remove('active');
+                console.log("Clic en dehors du menu, fermeture.");
+            }
+        });
     }
 
-    // Ouvrir/Fermer le menu au clic sur le burger
-    burgerMenu.addEventListener('click', function (event) {
-        event.stopPropagation(); // Empêche la propagation du clic
-        burgerMenu.classList.toggle('open');
-        menuOverlay.classList.toggle('active');
-        
-
-        console.log("Burger menu cliqué ! État actuel : ", menuOverlay.classList.contains('active') ? "OUVERT" : "FERMÉ");
-    });
-
-    // Fermer le menu si on clique sur un lien à l'intérieur
-    menuOverlay.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', function () {
-            burgerMenu.classList.remove('open');
-            menuOverlay.classList.remove('active');
-            console.log("Lien cliqué, fermeture du menu.");
-        });
-    });
-
-    // Fermer le menu si on clique en dehors
-    document.addEventListener('click', function (event) {
-        if (!menuOverlay.contains(event.target) && !burgerMenu.contains(event.target)) {
-            burgerMenu.classList.remove('open');
-            menuOverlay.classList.remove('active');
-            console.log("Clic en dehors du menu, fermeture.");
-        }
-    });
-
-    // 2️ Modale Contact
-    console.log("JS de la modale chargé !");
-
+    // Modale Contact
     const modal = document.getElementById('contact-modal');
     const closeButton = document.getElementById('close-modal');
+    console.log("JS de la modale chargé !");
 
-    console.log("Modale trouvée :", modal);
-    console.log("Bouton de fermeture trouvé :", closeButton);
-
-    // 🔥 Ajout d'un eventListener pour les boutons dynamiques
+    // Ouvrir la modale
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("open-contact-modal")) {
             event.preventDefault();
-            console.log("Bouton cliqué !");
+            console.log("Bouton cliqué pour ouvrir la modale !");
             if (modal) {
-                modal.style.display = 'flex'; 
+                modal.style.display = 'flex';
                 modal.setAttribute('aria-hidden', 'false');
             } else {
                 console.log("Erreur : Modale introuvable !");
@@ -61,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Fermer la modale
     if (closeButton && modal) {
         closeButton.addEventListener('click', () => {
             console.log("Fermeture de la modale");
@@ -77,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 3️ Filtrage et Load More 
+    // Fonction de chargement des photos avec les filtres et pagination
     let page = 1;
     const galerie = document.querySelector(".galerie-photo");
     const loadMoreBtn = document.getElementById("load-more");
@@ -87,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let format = document.getElementById("filter-format")?.value;
         let sortOrder = document.getElementById("filter-sort")?.value;
 
-        if (reset) page = 1; 
+        if (reset) page = 1;
 
         fetch(ajax_object.ajaxurl, {
             method: "POST",
@@ -107,74 +125,47 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 galerie.insertAdjacentHTML("beforeend", data);
             }
+            
+            // Mettre à jour les infos des photos
+            updatePhotoInfo();
 
-            // Gestion de la visibilité du bouton "Charger plus"
-            if (data.trim() === "" || document.querySelectorAll(".photo-item").length < 8) {
-                loadMoreBtn.style.display = "none";
-            } else {
-                loadMoreBtn.style.display = "block";
+            // Vérifier s'il y a encore des photos à charger
+            if (data.trim() === '') {
+                loadMoreBtn.style.display = 'none'; // Masquer le bouton "Charger plus"
             }
         })
         .catch(error => console.error("Erreur Ajax :", error));
     }
 
-    // Écouteurs pour les filtres
+    // Écouteurs d'événements pour les filtres
     ["filter-theme", "filter-format", "filter-sort"].forEach(id => {
         document.getElementById(id)?.addEventListener("change", function () {
             loadPhotos(true);
         });
     });
 
-    // Bouton "Charger plus"
+    // Charger plus de photos
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener("click", function () {
             page++;
             loadPhotos(false);
         });
     }
-});
 
-// 4️ Info hover galerie 
-// Fonction AJAX pour récupérer les informations de la photo
-document.querySelectorAll('.photo-item').forEach(item => {
-    item.addEventListener('mouseenter', function() {
-        const photoId = item.querySelector('.photo-info-left').getAttribute('data-photo-id');
-        if (photoId) {
-            fetch(`${ajax_object.ajaxurl}?action=get_photo_details&photo_id=${photoId}`)
-                .then(response => response.json())
-                .then(data => {
-                    // Mettre à jour seulement la catégorie sans toucher au titre
-                    const rightInfo = item.querySelector('.photo-info-right');
-                    rightInfo.textContent = data.categorie || 'Non classé';
-                })
-                .catch(error => console.error('Erreur lors de la récupération des infos :', error));
-        }
-    });
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".custom-select").forEach(select => {
-        let selected = select.querySelector(".select-selected");
-        let options = select.querySelector(".select-options");
-
-        // Toggle dropdown visibility
-        selected.addEventListener("click", function() {
-            select.classList.toggle("active");
-        });
-
-        // Handle option selection
-        select.querySelectorAll(".select-option").forEach(option => {
-            option.addEventListener("click", function() {
-                selected.textContent = this.textContent;
-                select.classList.remove("active");
-            });
-        });
-
-        // Close dropdown if clicked outside
-        document.addEventListener("click", function(e) {
-            if (!select.contains(e.target)) {
-                select.classList.remove("active");
+    // Charger les infos au survol de la photo
+    document.addEventListener('mouseenter', function(event) {
+        if (event.target.closest('.photo-item')) {
+            const item = event.target.closest('.photo-item');
+            const photoId = item.getAttribute('data-photo-id');
+            if (photoId) {
+                fetch(`${ajax_object.ajaxurl}?action=get_photo_details&photo_id=${photoId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const rightInfo = item.querySelector('.photo-info-right');
+                        if (rightInfo) rightInfo.textContent = data.categorie || 'Non classé';
+                    })
+                    .catch(error => console.error('Erreur lors de la récupération des infos :', error));
             }
-        });
-    });
+        }
+    }, true);
 });

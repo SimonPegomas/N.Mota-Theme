@@ -13,7 +13,10 @@ function mota_theme_enqueue_assets() {
 
     // Scripts JS
     wp_enqueue_script('mota-scripts', get_stylesheet_directory_uri() . '/asset/js/scripts.js', array('jquery'), null, true);
+   
     wp_enqueue_script('lightbox-js', get_stylesheet_directory_uri() . '/asset/js/lightbox.js', array('jquery'), '1.0', true);
+
+    // Charger le JS d'infos photo 
     wp_enqueue_script('photo-info-script', get_stylesheet_directory_uri() . '/asset/js/photo-info.js', array('jquery'), '1.0', true);
 
     // Variables Ajax pour mota-scripts
@@ -24,6 +27,9 @@ function mota_theme_enqueue_assets() {
 
 // Ajouter les styles et scripts au bon hook
 add_action('wp_enqueue_scripts', 'mota_theme_enqueue_assets');
+
+
+
 
 // Fonction pour charger dynamiquement les photos via Ajax
 function filter_photos() {
@@ -69,45 +75,41 @@ function filter_photos() {
     if ($query->have_posts()) :
         while ($query->have_posts()) : $query->the_post();
             $URLphoto = get_field('fichier', get_the_ID());
-            $categorie_nom = get_field('categorie', get_the_ID());
-            $reference = get_field('reference_', get_the_ID());
-            ?>
-            <div class="photo-item">
-                <img src="<?php echo esc_url($URLphoto); ?>" alt="<?php the_title(); ?>">
-
-                <!-- Conteneur des icônes au hover -->
-                <div class="photo-hover">
-                    <!-- Icône "œil" -->
-                    <a href="<?php echo get_permalink(get_page_by_path('info-photo')) . '?photo_id=' . get_the_ID(); ?>" class="photo-info-btn">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/asset/icons/eye-solid.png" alt="Voir les infos">
-                    </a>
-
-                    <!-- Icône "plein écran" lightbox -->
-                    <a href="<?php echo esc_url($URLphoto); ?>" data-lightbox="galerie" data-photo-id="<?php echo get_the_ID(); ?>" class="photo-lightbox-btn">
-                        <img src="<?php echo get_stylesheet_directory_uri(); ?>/asset/icons/fullscreen.png" alt="Plein écran">
-                    </a>
-                </div>
-
-                <!-- Informations sur la photo -->
-                <div class="photo-info photo-info-left" data-photo-id="<?php echo get_the_ID(); ?>">
-                    <?php echo esc_html(get_the_title()); ?>
-                </div>
-                <div class="photo-info photo-info-right" data-photo-id="<?php echo get_the_ID(); ?>">
-                    <?php echo esc_html($categorie_nom); ?>
-                </div>
-            </div>
-            <?php
+            echo '<div class="photo-item">';
+            echo '<img src="' . esc_url($URLphoto) . '" alt="' . esc_attr($alt_text) . '">';
+    
+        // Conteneur des icônes qui apparaissent au hover
+            echo '<div class="photo-hover">';
+    
+        // Icône "oeil" 
+            echo '<a href="' . get_permalink(get_page_by_path('info-photo')) . '?photo_id=' . get_the_ID() . '" class="photo-info-btn">';
+            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/eye-solid.svg" alt="Voir les infos">';
+            echo '</a>';
+    
+    
+       // Icône "plein écran" lightbox
+            echo '<a href="' . esc_url($URLphoto) . '" 
+                data-lightbox="galerie" 
+                data-photo-id="' . get_the_ID() . '" 
+                    class="photo-lightbox-btn">';
+            echo '<img src="' . get_stylesheet_directory_uri() . '/asset/icons/fullscreen.svg" alt="Plein écran">';
+            echo '</a>';
+    
+            echo '</div>'; 
+            echo '</div>'; 
+    
+            
         endwhile;
     else:
-        echo '<p>Aucune photo trouvée.</p>';
+        echo '<p></p>';
     endif;
 
     wp_reset_postdata();
     echo ob_get_clean();
     die();
 }
+// recuperation des infos 
 
-// Récupération des détails d'une photo
 function get_photo_details($photo_id) {
     if (!$photo_id) return null;
 
@@ -125,8 +127,6 @@ function get_photo_details($photo_id) {
         'image'     => get_field('fichier', $photo_id)
     ];
 }
-
-// Fonction Ajax pour récupérer les détails de la photo
 function ajax_get_photo_details() {
     $photo_id = isset($_GET['photo_id']) ? intval($_GET['photo_id']) : 0;
     $photo_info = get_photo_details($photo_id);
@@ -145,3 +145,5 @@ add_action('wp_ajax_nopriv_get_photo_details', 'ajax_get_photo_details');
 
 add_action('wp_ajax_filter_photos', 'filter_photos');
 add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
+
+

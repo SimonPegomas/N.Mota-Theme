@@ -2,10 +2,6 @@
 
 /* Barre de navigation sticky */
 header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -45,7 +41,7 @@ header {
 }
 
 .menu nav ul li a:hover {
-  font-weight: 700;
+  color: #0073aa;
 }
 
 /* ======= BURGER MENU ======= */
@@ -145,8 +141,6 @@ header {
 }
  .site-header {
   background-color: transparent;
-  padding-block-start: 0% !important;
-  padding-block-end: 0% !important;
  }
 
  /* Footer */
